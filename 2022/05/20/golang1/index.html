@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="golang," />
 
 
 
@@ -79,14 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://example.com/categories/index.html">
+<meta name="description" content="本文将从实际开发的角度入门golang语言。首先我们将编写一个简单的hello，world程序，当然，也不是那么简单。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="golang入门（1）基本语句">
+<meta property="og:url" content="http://example.com/2022/05/20/golang1/index.html">
 <meta property="og:site_name" content="Reno&#39;s Notebook">
+<meta property="og:description" content="本文将从实际开发的角度入门golang语言。首先我们将编写一个简单的hello，world程序，当然，也不是那么简单。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-17T08:30:09.447Z">
-<meta property="article:modified_time" content="2022-05-17T08:30:09.447Z">
+<meta property="article:published_time" content="2022-05-20T12:33:01.000Z">
+<meta property="article:modified_time" content="2022-05-20T23:34:57.192Z">
 <meta property="article:author" content="Yuning Ding">
+<meta property="article:tag" content="golang">
 <meta name="twitter:card" content="summary">
 
 
@@ -117,12 +120,12 @@
 
 
 
-  <link rel="canonical" href="http://example.com/categories/"/>
+  <link rel="canonical" href="http://example.com/2022/05/20/golang1/"/>
 
 
 
 
-  <title>categories | Reno's Notebook</title>
+  <title>golang入门（1）基本语句 | Reno's Notebook</title>
   
 
 
@@ -290,40 +293,262 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/20/golang1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Reno's Notebook">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">categories</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="category-all-page">
-            <div class="category-all-title">
-                3 categories in total
+          <h1 class="post-title" itemprop="name headline">golang入门（1）基本语句</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-05-20T20:33:01+08:00">
+                2022-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/golang%E5%85%A5%E9%97%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">golang入门</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/05/20/golang1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/05/20/golang1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  833
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  4
+                </span>
+              
             </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ciscn/">ciscn</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/golang%E5%85%A5%E9%97%A8/">golang入门</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">常用工具</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
-        
-      </div>
+          
+
+          
+              <div class="post-description">
+                  本文将从实际开发的角度入门golang语言。首先我们将编写一个简单的hello，world程序，当然，也不是那么简单。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="开始，版本0-1"><a href="#开始，版本0-1" class="headerlink" title="开始，版本0.1"></a>开始，版本0.1</h2><p>首先我们编写一个最简单golang程序，输出一个’hello,world’。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello, world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们需要思考一个问题，如何不使用标准输出和断点测试代码？首先我们将main函数改为更符合实际场景的模式。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">()</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello, world&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(Hello())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们创建一个hello_test.go文件作为测试，测试的demo如下。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;testing&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHello</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    got := Hello()</span><br><span class="line">    want := <span class="string">&quot;Hello, world&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> got != want &#123;</span><br><span class="line">        t.Errorf(<span class="string">&quot;got &#x27;%q&#x27; want &#x27;%q&#x27;&quot;</span>, got, want)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>构造测试需要满足一些规则。</p>
+<ul>
+<li>程序需要在一个名为xxx_test.go的文件中编写</li>
+<li>测试函数的命名必须以单词 Test 开始</li>
+<li>测试函数只接受一个参数 t *testing.T</li>
+</ul>
+<h2 id="版本0-2：指定问候的接受者"><a href="#版本0-2：指定问候的接受者" class="headerlink" title="版本0.2：指定问候的接受者"></a>版本0.2：指定问候的接受者</h2><p>现在我们需要对程序进行升级，使程序能够指定问候的对象，这个实现很简单，只需要一个参数即可,新的Hello函数为。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">(name <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;Hello, &quot;</span>+name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个代码中的”Hello, “也可以定义为常量形式，便于理解值的含义，因此程序更新为0.2.1版本。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> englishHelloPrefix = <span class="string">&quot;Hello, &quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">(name <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> englishHelloPrefix + name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们又提出了一个需求，如果Hello的参数是空，则也需要输出’Hello, world”，程序更新为0.2.2版本。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> englishHelloPrefix = <span class="string">&quot;Hello, &quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">(name <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> name == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        name = <span class="string">&quot;World&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> englishHelloPrefix + name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在产生了一个新的问题，我们现在应该如何进行编写测试？在这里我们在函数内设定了一个函数以减少代码重用，这是golang的特性之一。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHello</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	assertCorrectMessage := <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T, got, want <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">		t.Helper()</span><br><span class="line">		<span class="keyword">if</span> got != want &#123;</span><br><span class="line">			t.Errorf(<span class="string">&quot;got &#x27;%q&#x27; want &#x27;%q&#x27;&quot;</span>, got, want)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	t.Run(<span class="string">&quot;saying hello to people&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">		got := Hello(<span class="string">&quot;Chris&quot;</span>)</span><br><span class="line">		want := <span class="string">&quot;Hello, Chris&quot;</span></span><br><span class="line">		assertCorrectMessage(t, got, want)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	t.Run(<span class="string">&quot;empty string defaults to &#x27;world&#x27;&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">		got := Hello(<span class="string">&quot;&quot;</span>)</span><br><span class="line">		want := <span class="string">&quot;Hello, World&quot;</span></span><br><span class="line">		assertCorrectMessage(t, got, want)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="版本0-3：多种语言"><a href="#版本0-3：多种语言" class="headerlink" title="版本0.3：多种语言"></a>版本0.3：多种语言</h2><p>我们现在要为西班牙语和法语用户提供服务，这需要引入一个参数language.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> englishHelloPrefix = <span class="string">&quot;Hello, &quot;</span></span><br><span class="line"><span class="keyword">const</span> spanishHelloPrefix = <span class="string">&quot;Hola, &quot;</span></span><br><span class="line"><span class="keyword">const</span> frenchHelloPrefix = <span class="string">&quot;Bonjour, &quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">(name <span class="type">string</span>, language <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> name == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">		name = <span class="string">&quot;World&quot;</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> language == <span class="string">&quot;spanish&quot;</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> spanishHelloPrefix + name</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> language == <span class="string">&quot;french&quot;</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> frenchHelloPrefix + name</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> englishHelloPrefix + name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试代码也应该更新。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;testing&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHello</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	assertCorrectMessage := <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T, got, want <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">		t.Helper()</span><br><span class="line">		<span class="keyword">if</span> got != want &#123;</span><br><span class="line">			t.Errorf(<span class="string">&quot;got &#x27;%q&#x27; want &#x27;%q&#x27;&quot;</span>, got, want)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	t.Run(<span class="string">&quot;saying bonjour to people&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">		got := Hello(<span class="string">&quot;Chris&quot;</span>, <span class="string">&quot;french&quot;</span>)</span><br><span class="line">		want := <span class="string">&quot;Bonjour, Chris&quot;</span></span><br><span class="line">		assertCorrectMessage(t, got, want)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	t.Run(<span class="string">&quot;saying hello to people&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">		got := Hello(<span class="string">&quot;Chris&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">		want := <span class="string">&quot;Hello, Chris&quot;</span></span><br><span class="line">		assertCorrectMessage(t, got, want)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	t.Run(<span class="string">&quot;saying hola to people&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">		got := Hello(<span class="string">&quot;Chris&quot;</span>, <span class="string">&quot;spanish&quot;</span>)</span><br><span class="line">		want := <span class="string">&quot;Hola, Chris&quot;</span></span><br><span class="line">		assertCorrectMessage(t, got, want)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	t.Run(<span class="string">&quot;empty string defaults to &#x27;world&#x27;&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">		got := Hello(<span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">		want := <span class="string">&quot;Hello, World&quot;</span></span><br><span class="line">		assertCorrectMessage(t, got, want)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/golang/" rel="tag"># golang</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/05/18/docker/" rel="next" title="docker使用教程">
+                <i class="fa fa-chevron-left"></i> docker使用教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -332,6 +557,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -352,8 +584,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -413,6 +654,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%EF%BC%8C%E7%89%88%E6%9C%AC0-1"><span class="nav-number">1.</span> <span class="nav-text">开始，版本0.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC0-2%EF%BC%9A%E6%8C%87%E5%AE%9A%E9%97%AE%E5%80%99%E7%9A%84%E6%8E%A5%E5%8F%97%E8%80%85"><span class="nav-number">2.</span> <span class="nav-text">版本0.2：指定问候的接受者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC0-3%EF%BC%9A%E5%A4%9A%E7%A7%8D%E8%AF%AD%E8%A8%80"><span class="nav-number">3.</span> <span class="nav-text">版本0.3：多种语言</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
