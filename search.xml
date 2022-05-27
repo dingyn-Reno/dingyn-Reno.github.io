@@ -36,8 +36,10 @@
 <script type="math/tex; mode=display">L_s=\frac{1}{N}\sum_{i=1}^{N}{-ln\frac{e^{z_{y_i}}}{\sum_{j=1}^{C}e^{z_j}}}</script><p>softmax loss的分类效果如下图所示。</p>
 <img src="/2022/05/25/faceloss/1.png" class="" title="softmaxloss分类效果">
 <p>softmax loss在人脸识别的问题：对于类内的约束不好，因此当分类比较多时或者样本差距比较小时，softmax监督效果不够。</p>
-<h2 id="Feature-Normalization-Based-Loss-Function"><a href="#Feature-Normalization-Based-Loss-Function" class="headerlink" title="Feature Normalization Based Loss Function"></a>Feature Normalization Based Loss Function</h2><h3 id="L2-softmax"><a href="#L2-softmax" class="headerlink" title="L2-softmax"></a>L2-softmax</h3><h3 id="NormFace"><a href="#NormFace" class="headerlink" title="NormFace"></a>NormFace</h3><h2 id="Margin-Based-Loss-Function"><a href="#Margin-Based-Loss-Function" class="headerlink" title="Margin Based Loss Function"></a>Margin Based Loss Function</h2><p>sphere,cos,arc,mag,ada</p>
-<h2 id="增加额外约束的loss"><a href="#增加额外约束的loss" class="headerlink" title="增加额外约束的loss"></a>增加额外约束的loss</h2><h3 id="center-loss"><a href="#center-loss" class="headerlink" title="center loss"></a>center loss</h3><h3 id="ring-loss"><a href="#ring-loss" class="headerlink" title="ring loss"></a>ring loss</h3>]]></content>
+<h2 id="L2-softmax"><a href="#L2-softmax" class="headerlink" title="L2-softmax"></a>L2-softmax</h2><p>上文的全连接层可以用以下形式表示。</p>
+<script type="math/tex; mode=display">z=Wx</script><p>对特征进行归一化。</p>
+<p>$$y=\alpha \cdot \frac{x}</p>
+]]></content>
       <categories>
         <category>深度学习杂谈</category>
       </categories>
