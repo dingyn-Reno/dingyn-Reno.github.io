@@ -38,7 +38,42 @@
 <p>softmax loss在人脸识别的问题：对于类内的约束不好，因此当分类比较多时或者样本差距比较小时，softmax监督效果不够。</p>
 <h2 id="L2-softmax"><a href="#L2-softmax" class="headerlink" title="L2-softmax"></a>L2-softmax</h2><p>上文的全连接层可以用以下形式表示。</p>
 <script type="math/tex; mode=display">z=Wx</script><p>对特征进行归一化。</p>
-<p>$$y=\alpha \cdot \frac{x}</p>
+<script type="math/tex; mode=display">y=\alpha \cdot \frac{x}{\|x\|_2}</script><p>因此,得到L2-softmax。</p>
+<script type="math/tex; mode=display">z=Wy</script><p>特征归一化的优势：将特征向量映射到半径为1的范围，便于理解和优化。</p>
+<h2 id="Margin-Based-Loss-Function"><a href="#Margin-Based-Loss-Function" class="headerlink" title="Margin Based Loss Function"></a>Margin Based Loss Function</h2><p>基于边际的损失函数的标准形式，缩小权值向量W和特征向量f之间的夹角。</p>
+<script type="math/tex; mode=display">\mathcal{L}=-log\frac{exp(f(\theta_{y_i},m))}{exp(f(\theta_{y_i},m))+\sum_{j\neq y_i}^{}exp(scos\theta_j)}</script><p>sphereFace: 使用乘法角度间隔。</p>
+<script type="math/tex; mode=display">f(\theta_j,m)_{sphereFace}=\left\{
+\begin{aligned}
+scos(\theta_j ) && j=y_i\\
+scos\theta_j && j\neq y_i\\
+\end{aligned}
+\right.</script><p>LMCL和arcFace:使用加法角度间隔，相比乘法间隔加快了收敛速度。</p>
+<p>LMCL：</p>
+<script type="math/tex; mode=display">f(\theta_j,m)_{LMCL}=\left\{
+\begin{aligned}
+s(cos\theta_j -m) && j=y_i\\
+scos\theta_j && j\neq y_i\\
+\end{aligned}
+\right.</script><p>arcFace：</p>
+<script type="math/tex; mode=display">f(\theta_j,m)_{arcFace}=\left\{
+\begin{aligned}
+scos(\theta_j +m) && j=y_i\\
+scos\theta_j && j\neq y_i\\
+\end{aligned}
+\right.</script><img src="/2022/05/25/faceloss/2.png" class="" title="softmaxloss分类效果">
+<p>MagFace：额外考虑了对类内分布的精细化处理。</p>
+<script type="math/tex; mode=display">\mathcal{L}=-log\frac{exp(scos(\theta_j +m(a_i)))}{exp(scos(\theta_j +m(a_i))))+\sum_{j\neq y_i}^{}exp(scos\theta_j)}+\lambda_gg(a_i)</script><p>MagFace主要做了两处改进，第一是把ArcFace的loss函数中角度间隔惩罚由常数项$m$ 改成了基于特征模长 $a_i$ 的函数 $m(a_i)$ ，同时增加一个基于模长的惩罚项 $g(a_i)$。</p>
+<p>AdaFace: 简单或困难样本的相对重要性应该基于样本的图像质量来给定。</p>
+<script type="math/tex; mode=display">f(\theta_j,m)_{AdaFace}=\left\{
+\begin{aligned}
+scos(\theta_j +g_{angle})-g_{add} && j=y_i\\
+scos\theta_j && j\neq y_i\\
+\end{aligned}
+\right.</script><h2 id="多采样的loss"><a href="#多采样的loss" class="headerlink" title="多采样的loss"></a>多采样的loss</h2><p>Contrastive Loss：有效的处理这种网络中的成对数据的关系。</p>
+<p>对比损失一次采样两个样本,通常是使用图中这种孪生网络来处理成对数据的关系。</p>
+<p>Triplet Loss：三元组损失</p>
+<p>Triplet Loss是通过基准样本，正样本，负样本三者进行度量，目标是让正样本离Anchor更近，负样本离Anchor更远。普遍来说，这些多采样的方法很善于对相似样本区分，但弱点是占用的空间和时间往往会比较高。</p>
+<h2 id="增加额外约束的loss"><a href="#增加额外约束的loss" class="headerlink" title="增加额外约束的loss"></a>增加额外约束的loss</h2><p>center loss：<br>另一种改进的方向是采用联合监督的损失函数，就是用一个额外的损失函数辅助约束样本。代表的就是center loss，这是一种以特征向量到中心向量的距离作为度量的损失函数。图中使用lambda的center loss+softmax代表损失函数，lambda决定了center loss所占权重。可以看出，center loss对于类内的约束很好，弱点就是以及使用的这个中心矩阵C所占空间太大。我们也是基于这种联合监督的思想提出了一个时空鲁棒的损失函数用于时序的识别问题。</p>
 ]]></content>
       <categories>
         <category>深度学习杂谈</category>

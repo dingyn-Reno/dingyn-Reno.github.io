@@ -87,8 +87,9 @@
 <meta property="og:description" content="本文介绍了近年来的人脸损失函数发展。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2022/05/25/faceloss/1.png">
+<meta property="og:image" content="http://example.com/2022/05/25/faceloss/2.png">
 <meta property="article:published_time" content="2022-05-25T05:46:39.000Z">
-<meta property="article:modified_time" content="2022-05-27T06:17:19.822Z">
+<meta property="article:modified_time" content="2022-05-28T13:13:15.485Z">
 <meta property="article:author" content="Yuning Ding">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -405,7 +406,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  310
+                  978
                 </span>
               
 
@@ -421,7 +422,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  1
+                  3
                 </span>
               
             </div>
@@ -457,7 +458,42 @@
 <p>softmax loss在人脸识别的问题：对于类内的约束不好，因此当分类比较多时或者样本差距比较小时，softmax监督效果不够。</p>
 <h2 id="L2-softmax"><a href="#L2-softmax" class="headerlink" title="L2-softmax"></a>L2-softmax</h2><p>上文的全连接层可以用以下形式表示。</p>
 <script type="math/tex; mode=display">z=Wx</script><p>对特征进行归一化。</p>
-<p>$$y=\alpha \cdot \frac{x}</p>
+<script type="math/tex; mode=display">y=\alpha \cdot \frac{x}{\|x\|_2}</script><p>因此,得到L2-softmax。</p>
+<script type="math/tex; mode=display">z=Wy</script><p>特征归一化的优势：将特征向量映射到半径为1的范围，便于理解和优化。</p>
+<h2 id="Margin-Based-Loss-Function"><a href="#Margin-Based-Loss-Function" class="headerlink" title="Margin Based Loss Function"></a>Margin Based Loss Function</h2><p>基于边际的损失函数的标准形式，缩小权值向量W和特征向量f之间的夹角。</p>
+<script type="math/tex; mode=display">\mathcal{L}=-log\frac{exp(f(\theta_{y_i},m))}{exp(f(\theta_{y_i},m))+\sum_{j\neq y_i}^{}exp(scos\theta_j)}</script><p>sphereFace: 使用乘法角度间隔。</p>
+<script type="math/tex; mode=display">f(\theta_j,m)_{sphereFace}=\left\{
+\begin{aligned}
+scos(\theta_j ) && j=y_i\\
+scos\theta_j && j\neq y_i\\
+\end{aligned}
+\right.</script><p>LMCL和arcFace:使用加法角度间隔，相比乘法间隔加快了收敛速度。</p>
+<p>LMCL：</p>
+<script type="math/tex; mode=display">f(\theta_j,m)_{LMCL}=\left\{
+\begin{aligned}
+s(cos\theta_j -m) && j=y_i\\
+scos\theta_j && j\neq y_i\\
+\end{aligned}
+\right.</script><p>arcFace：</p>
+<script type="math/tex; mode=display">f(\theta_j,m)_{arcFace}=\left\{
+\begin{aligned}
+scos(\theta_j +m) && j=y_i\\
+scos\theta_j && j\neq y_i\\
+\end{aligned}
+\right.</script><img src="/2022/05/25/faceloss/2.png" class="" title="softmaxloss分类效果">
+<p>MagFace：额外考虑了对类内分布的精细化处理。</p>
+<script type="math/tex; mode=display">\mathcal{L}=-log\frac{exp(scos(\theta_j +m(a_i)))}{exp(scos(\theta_j +m(a_i))))+\sum_{j\neq y_i}^{}exp(scos\theta_j)}+\lambda_gg(a_i)</script><p>MagFace主要做了两处改进，第一是把ArcFace的loss函数中角度间隔惩罚由常数项$m$ 改成了基于特征模长 $a_i$ 的函数 $m(a_i)$ ，同时增加一个基于模长的惩罚项 $g(a_i)$。</p>
+<p>AdaFace: 简单或困难样本的相对重要性应该基于样本的图像质量来给定。</p>
+<script type="math/tex; mode=display">f(\theta_j,m)_{AdaFace}=\left\{
+\begin{aligned}
+scos(\theta_j +g_{angle})-g_{add} && j=y_i\\
+scos\theta_j && j\neq y_i\\
+\end{aligned}
+\right.</script><h2 id="多采样的loss"><a href="#多采样的loss" class="headerlink" title="多采样的loss"></a>多采样的loss</h2><p>Contrastive Loss：有效的处理这种网络中的成对数据的关系。</p>
+<p>对比损失一次采样两个样本,通常是使用图中这种孪生网络来处理成对数据的关系。</p>
+<p>Triplet Loss：三元组损失</p>
+<p>Triplet Loss是通过基准样本，正样本，负样本三者进行度量，目标是让正样本离Anchor更近，负样本离Anchor更远。普遍来说，这些多采样的方法很善于对相似样本区分，但弱点是占用的空间和时间往往会比较高。</p>
+<h2 id="增加额外约束的loss"><a href="#增加额外约束的loss" class="headerlink" title="增加额外约束的loss"></a>增加额外约束的loss</h2><p>center loss：<br>另一种改进的方向是采用联合监督的损失函数，就是用一个额外的损失函数辅助约束样本。代表的就是center loss，这是一种以特征向量到中心向量的距离作为度量的损失函数。图中使用lambda的center loss+softmax代表损失函数，lambda决定了center loss所占权重。可以看出，center loss对于类内的约束很好，弱点就是以及使用的这个中心矩阵C所占空间太大。我们也是基于这种联合监督的思想提出了一个时空鲁棒的损失函数用于时序的识别问题。</p>
 
       
     </div>
@@ -650,7 +686,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E4%BB%BB%E5%8A%A1%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">分类任务基本流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#softmax-loss"><span class="nav-number">2.</span> <span class="nav-text">softmax loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L2-softmax"><span class="nav-number">3.</span> <span class="nav-text">L2-softmax</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E4%BB%BB%E5%8A%A1%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">分类任务基本流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#softmax-loss"><span class="nav-number">2.</span> <span class="nav-text">softmax loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L2-softmax"><span class="nav-number">3.</span> <span class="nav-text">L2-softmax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Margin-Based-Loss-Function"><span class="nav-number">4.</span> <span class="nav-text">Margin Based Loss Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E9%87%87%E6%A0%B7%E7%9A%84loss"><span class="nav-number">5.</span> <span class="nav-text">多采样的loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E9%A2%9D%E5%A4%96%E7%BA%A6%E6%9D%9F%E7%9A%84loss"><span class="nav-number">6.</span> <span class="nav-text">增加额外约束的loss</span></a></li></ol></div>
             
 
           </div>
@@ -684,7 +720,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">5.5k</span>
+    <span title="Site words total count">6.1k</span>
   
 </div>
 
