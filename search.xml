@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>golang入门(3) 指针和错误</title>
+    <url>/2022/06/05/golang3/</url>
+    <content><![CDATA[<h2 id="虚拟钱包"><a href="#虚拟钱包" class="headerlink" title="虚拟钱包"></a>虚拟钱包</h2><p>在前面的示例中，我们直接使用字段名称访问字段，但是在非常强调安全性的钱包中，我们不想暴露自己的内部状态，而是通过方法来控制访问的权限。编写测试：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestWallet</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	wallet := Wallet&#123;&#125;</span><br><span class="line"></span><br><span class="line">	wallet.Deposit(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">	got := wallet.Balance()</span><br><span class="line">	want := <span class="number">10</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> got != want &#123;</span><br><span class="line">		t.Errorf(<span class="string">&quot;got %d want %d&quot;</span>, got, want)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在go语言中，调用参数时，参数会被复制。因此需要引入指针。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Wallet <span class="keyword">struct</span> &#123;</span><br><span class="line">	balance <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span></span> Deposit(amount <span class="type">int</span>) &#123;</span><br><span class="line">	w.balance += amount</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span></span> Balance() <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> w.balance</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们需要封装一下数据类型。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Bitcoin <span class="type">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Wallet <span class="keyword">struct</span> &#123;</span><br><span class="line">	balance Bitcoin</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span></span> Deposit(amount Bitcoin) &#123;</span><br><span class="line">	w.balance += amount</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span></span> Balance() Bitcoin &#123;</span><br><span class="line">	<span class="keyword">return</span> w.balance</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="取比特币"><a href="#取比特币" class="headerlink" title="取比特币"></a>取比特币</h2><p>下面我们增加一个取钱的函数。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span></span> Withdraw(amount Bitcoin) &#123;</span><br><span class="line">	w.balance -= amount</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数有个问题，就是没有考虑透支的问题。因此，我们需要一个错误处理。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *Wallet)</span></span> Withdraw(amount Bitcoin) <span class="type">error</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> amount &gt; w.balance &#123;</span><br><span class="line">		<span class="keyword">return</span> errors.New(<span class="string">&quot;oh no&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	w.balance -= amount</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>自此，一个简易的钱币存取过程完成。</p>
+]]></content>
+      <categories>
+        <category>golang入门</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>scp指令--文件传输</title>
     <url>/2022/05/26/scp/</url>
     <content><![CDATA[<p>在linux下一般用scp这个命令来通过ssh传输文件。</p>
