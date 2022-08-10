@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="golang," />
+  <meta name="keywords" content="python," />
 
 
 
@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="本文将从实际开发的角度入门golang语言。首先我们将编写一个简单的hello，world程序，当然，也不是那么简单。">
+<meta name="description" content="本文介绍了python绘制openpose25和ntu-rgbd60的脚本。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="golang入门(1) 基本语句">
-<meta property="og:url" content="http://example.com/2022/05/20/golang1/index.html">
+<meta property="og:title" content="python绘制骨架图">
+<meta property="og:url" content="http://example.com/2022/07/26/plotskeleton/index.html">
 <meta property="og:site_name" content="Reno&#39;s Notebook">
-<meta property="og:description" content="本文将从实际开发的角度入门golang语言。首先我们将编写一个简单的hello，world程序，当然，也不是那么简单。">
+<meta property="og:description" content="本文介绍了python绘制openpose25和ntu-rgbd60的脚本。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-20T12:33:01.000Z">
-<meta property="article:modified_time" content="2022-05-25T01:05:20.273Z">
+<meta property="article:published_time" content="2022-07-26T07:16:46.000Z">
+<meta property="article:modified_time" content="2022-08-09T01:08:22.687Z">
 <meta property="article:author" content="Yuning Ding">
-<meta property="article:tag" content="golang">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 
 
@@ -120,12 +120,12 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2022/05/20/golang1/"/>
+  <link rel="canonical" href="http://example.com/2022/07/26/plotskeleton/"/>
 
 
 
 
-  <title>golang入门(1) 基本语句 | Reno's Notebook</title>
+  <title>python绘制骨架图 | Reno's Notebook</title>
   
 
 
@@ -305,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/20/golang1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/26/plotskeleton/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -322,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">golang入门(1) 基本语句</h1>
+          <h1 class="post-title" itemprop="name headline">python绘制骨架图</h1>
         
 
         <div class="post-meta">
@@ -334,8 +334,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-05-20T20:33:01+08:00">
-                2022-05-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-07-26T15:16:46+08:00">
+                2022-07-26
               </time>
             
 
@@ -357,8 +357,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/golang%E5%85%A5%E9%97%A8/" itemprop="url" rel="index">
-                    <span itemprop="name">golang入门</span>
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
+                    <span itemprop="name">常用工具</span>
                   </a>
                 </span>
 
@@ -375,8 +375,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2022/05/20/golang1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2022/05/20/golang1/" itemprop="commentCount"></span>
+                <a href="/2022/07/26/plotskeleton/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/07/26/plotskeleton/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -403,7 +403,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  850
+                  1.2k
                 </span>
               
 
@@ -419,7 +419,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  4
+                  6
                 </span>
               
             </div>
@@ -427,7 +427,7 @@
 
           
               <div class="post-description">
-                  本文将从实际开发的角度入门golang语言。首先我们将编写一个简单的hello，world程序，当然，也不是那么简单。
+                  本文介绍了python绘制openpose25和ntu-rgbd60的脚本。
               </div>
           
 
@@ -444,41 +444,10 @@
       
 
       
-        <blockquote>
-<p>本项目的完整代码发布在我的github项目<a target="_blank" rel="noopener" href="https://github.com/dingyn-Reno/golearn">golearn</a>上。</p>
-</blockquote>
-<h2 id="开始，版本0-1"><a href="#开始，版本0-1" class="headerlink" title="开始，版本0.1"></a>开始，版本0.1</h2><p>首先我们编写一个最简单golang程序，输出一个’hello,world’。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello, world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接下来我们需要思考一个问题，如何不使用标准输出和断点测试代码？首先我们将main函数改为更符合实际场景的模式。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">()</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello, world&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(Hello())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们创建一个hello_test.go文件作为测试，测试的demo如下。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;testing&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHello</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    got := Hello()</span><br><span class="line">    want := <span class="string">&quot;Hello, world&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> got != want &#123;</span><br><span class="line">        t.Errorf(<span class="string">&quot;got &#x27;%q&#x27; want &#x27;%q&#x27;&quot;</span>, got, want)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>构造测试需要满足一些规则。</p>
-<ul>
-<li>程序需要在一个名为xxx_test.go的文件中编写</li>
-<li>测试函数的命名必须以单词 Test 开始</li>
-<li>测试函数只接受一个参数 t *testing.T</li>
-</ul>
-<h2 id="版本0-2：指定问候的接受者"><a href="#版本0-2：指定问候的接受者" class="headerlink" title="版本0.2：指定问候的接受者"></a>版本0.2：指定问候的接受者</h2><p>现在我们需要对程序进行升级，使程序能够指定问候的对象，这个实现很简单，只需要一个参数即可,新的Hello函数为。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">(name <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;Hello, &quot;</span>+name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个代码中的”Hello, “也可以定义为常量形式，便于理解值的含义，因此程序更新为0.2.1版本。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> englishHelloPrefix = <span class="string">&quot;Hello, &quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">(name <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> englishHelloPrefix + name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们又提出了一个需求，如果Hello的参数是空，则也需要输出’Hello, world”，程序更新为0.2.2版本。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> englishHelloPrefix = <span class="string">&quot;Hello, &quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">(name <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> name == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        name = <span class="string">&quot;World&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> englishHelloPrefix + name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在产生了一个新的问题，我们现在应该如何进行编写测试？在这里我们在函数内设定了一个函数以减少代码重用，这是golang的特性之一。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHello</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	assertCorrectMessage := <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T, got, want <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">		t.Helper()</span><br><span class="line">		<span class="keyword">if</span> got != want &#123;</span><br><span class="line">			t.Errorf(<span class="string">&quot;got &#x27;%q&#x27; want &#x27;%q&#x27;&quot;</span>, got, want)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	t.Run(<span class="string">&quot;saying hello to people&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">		got := Hello(<span class="string">&quot;Chris&quot;</span>)</span><br><span class="line">		want := <span class="string">&quot;Hello, Chris&quot;</span></span><br><span class="line">		assertCorrectMessage(t, got, want)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	t.Run(<span class="string">&quot;empty string defaults to &#x27;world&#x27;&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">		got := Hello(<span class="string">&quot;&quot;</span>)</span><br><span class="line">		want := <span class="string">&quot;Hello, World&quot;</span></span><br><span class="line">		assertCorrectMessage(t, got, want)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="版本0-3：多种语言"><a href="#版本0-3：多种语言" class="headerlink" title="版本0.3：多种语言"></a>版本0.3：多种语言</h2><p>我们现在要为西班牙语和法语用户提供服务，这需要引入一个参数language.</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> englishHelloPrefix = <span class="string">&quot;Hello, &quot;</span></span><br><span class="line"><span class="keyword">const</span> spanishHelloPrefix = <span class="string">&quot;Hola, &quot;</span></span><br><span class="line"><span class="keyword">const</span> frenchHelloPrefix = <span class="string">&quot;Bonjour, &quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Hello</span><span class="params">(name <span class="type">string</span>, language <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> name == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">		name = <span class="string">&quot;World&quot;</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> language == <span class="string">&quot;spanish&quot;</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> spanishHelloPrefix + name</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> language == <span class="string">&quot;french&quot;</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> frenchHelloPrefix + name</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> englishHelloPrefix + name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试代码也应该更新。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;testing&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHello</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	assertCorrectMessage := <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T, got, want <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">		t.Helper()</span><br><span class="line">		<span class="keyword">if</span> got != want &#123;</span><br><span class="line">			t.Errorf(<span class="string">&quot;got &#x27;%q&#x27; want &#x27;%q&#x27;&quot;</span>, got, want)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	t.Run(<span class="string">&quot;saying bonjour to people&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">		got := Hello(<span class="string">&quot;Chris&quot;</span>, <span class="string">&quot;french&quot;</span>)</span><br><span class="line">		want := <span class="string">&quot;Bonjour, Chris&quot;</span></span><br><span class="line">		assertCorrectMessage(t, got, want)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	t.Run(<span class="string">&quot;saying hello to people&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">		got := Hello(<span class="string">&quot;Chris&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">		want := <span class="string">&quot;Hello, Chris&quot;</span></span><br><span class="line">		assertCorrectMessage(t, got, want)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	t.Run(<span class="string">&quot;saying hola to people&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">		got := Hello(<span class="string">&quot;Chris&quot;</span>, <span class="string">&quot;spanish&quot;</span>)</span><br><span class="line">		want := <span class="string">&quot;Hola, Chris&quot;</span></span><br><span class="line">		assertCorrectMessage(t, got, want)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	t.Run(<span class="string">&quot;empty string defaults to &#x27;world&#x27;&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">		got := Hello(<span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">		want := <span class="string">&quot;Hello, World&quot;</span></span><br><span class="line">		assertCorrectMessage(t, got, want)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>openpose25:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="comment"># import torchvision</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line"></span><br><span class="line">x=np.load(<span class="string">&quot;961.npz.npy&quot;</span>)</span><br><span class="line">C, T, V, M = x.shape</span><br><span class="line">x=x[:,<span class="number">0</span>:<span class="number">129</span>,:,:]</span><br><span class="line"><span class="comment"># cnt=0</span></span><br><span class="line"><span class="comment"># for i in range(T - 1, -1, -1):</span></span><br><span class="line"><span class="comment">#     tmp = np.sum(x[:, i, :, :])</span></span><br><span class="line"><span class="comment">#     if tmp &gt; 0:</span></span><br><span class="line"><span class="comment">#         cnt = cnt + 1</span></span><br><span class="line"><span class="comment"># print(cnt)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(x.shape)</span><br><span class="line">point=x</span><br><span class="line">xmax= np.<span class="built_in">max</span>(point[<span class="number">0</span>, :, :, :])+ <span class="number">0.5</span></span><br><span class="line">xmin= np.<span class="built_in">min</span>(point[<span class="number">0</span>, :, :, :])- <span class="number">0.5</span></span><br><span class="line">ymax= np.<span class="built_in">max</span>(point[<span class="number">1</span>, :, :, :])+ <span class="number">0.3</span></span><br><span class="line">ymin= np.<span class="built_in">min</span>(point[<span class="number">1</span>, :, :, :])- <span class="number">0.3</span></span><br><span class="line">arms= np.array([<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]) <span class="comment">#胳膊</span></span><br><span class="line">rightHand= np.array([<span class="number">24</span>,<span class="number">11</span>]) <span class="comment">#右手</span></span><br><span class="line">leftHand= np.array([<span class="number">21</span>,<span class="number">14</span>]) <span class="comment">#左手</span></span><br><span class="line">legs= np.array([<span class="number">23</span>,<span class="number">22</span>,<span class="number">11</span>,<span class="number">10</span>,<span class="number">9</span>,<span class="number">8</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">19</span>,<span class="number">20</span>])  <span class="comment">#腿</span></span><br><span class="line">body= np.array([<span class="number">0</span>,<span class="number">1</span>,<span class="number">8</span>])   <span class="comment">#身体</span></span><br><span class="line">head=np.array([<span class="number">17</span>,<span class="number">15</span>,<span class="number">0</span>,<span class="number">16</span>,<span class="number">18</span>])</span><br><span class="line">row= point.shape[<span class="number">1</span>] <span class="comment">#有多少帧</span></span><br><span class="line">n = <span class="number">0</span>  <span class="comment"># 从第n帧开始展示</span></span><br><span class="line">m = <span class="number">30</span>  <span class="comment"># 到第m帧结束，n&lt;m&lt;row，这个m可以选取一个小于最大帧数的阈值，便于查看，若m=1则展示一帧</span></span><br><span class="line">plt.figure()</span><br><span class="line">plt.ion()  <span class="comment"># 使用plt.ion()这个函数，使matplotlib的显示模式转换为交互（interactive）模式。即使在脚本中遇到plt.show()，代码还是会继续执行。</span></span><br><span class="line">color_point = <span class="string">&#x27;#03ff&#x27;</span>  <span class="comment"># 关节点颜色,可输入16进制调色板</span></span><br><span class="line">color_bone = <span class="string">&#x27;red&#x27;</span>  <span class="comment"># 骨骼颜色</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n, m):</span><br><span class="line">    plt.cla()  <span class="comment">## Clear axis即清除当前图形中的当前活动轴。其他轴不受影响。</span></span><br><span class="line">    plt.scatter(point[<span class="number">0</span>, i, :, :], -point[<span class="number">1</span>, i, :, :], c=color_point, s=<span class="number">40.0</span>)  <span class="comment"># 通过散点图绘制关节点</span></span><br><span class="line">    <span class="comment"># 通过直线图绘制两点间的连接线，即骨骼</span></span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, arms, <span class="number">0</span>], -point[<span class="number">1</span>, i, arms, <span class="number">0</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, rightHand, <span class="number">0</span>], -point[<span class="number">1</span>, i, rightHand, <span class="number">0</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, leftHand, <span class="number">0</span>], -point[<span class="number">1</span>, i, leftHand, <span class="number">0</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, legs, <span class="number">0</span>], -point[<span class="number">1</span>, i, legs, <span class="number">0</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, body, <span class="number">0</span>], -point[<span class="number">1</span>, i, body, <span class="number">0</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, head, <span class="number">0</span>], -point[<span class="number">1</span>, i, head, <span class="number">0</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line"></span><br><span class="line">    plt.text(xmax - <span class="number">0.5</span>, ymax - <span class="number">0.1</span>, <span class="string">&#x27;frame: &#123;&#125;/&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(i, row - <span class="number">1</span>))  <span class="comment"># 这是第几帧</span></span><br><span class="line">    plt.xlim(xmin, xmax)  <span class="comment"># 坐标轴</span></span><br><span class="line">    plt.ylim(ymin, ymax)</span><br><span class="line">    plt.pause(<span class="number">0.001</span>)</span><br><span class="line"></span><br><span class="line">plt.ioff()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>ntu-pose</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">file_name = <span class="string">r&#x27;C:\Users\lenovo\Desktop\visiual/S001C001P001R001A009.skeleton&#x27;</span></span><br><span class="line">max_V = <span class="number">25</span> <span class="comment">#节点数</span></span><br><span class="line">max_M = <span class="number">2</span> <span class="comment">#骨架数量</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(file_name, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> fr:</span><br><span class="line">    frame_num = <span class="built_in">int</span>(fr.readline())</span><br><span class="line">    point = np.zeros((<span class="number">3</span>, frame_num, <span class="number">25</span>, <span class="number">2</span>))</span><br><span class="line">    <span class="keyword">for</span> frame <span class="keyword">in</span> <span class="built_in">range</span>(frame_num):</span><br><span class="line">        person_num = <span class="built_in">int</span>(fr.readline())</span><br><span class="line">        <span class="keyword">for</span> person <span class="keyword">in</span> <span class="built_in">range</span>(person_num):</span><br><span class="line">            fr.readline()</span><br><span class="line">            joint_num = <span class="built_in">int</span>(fr.readline())</span><br><span class="line">            <span class="keyword">for</span> joint <span class="keyword">in</span> <span class="built_in">range</span>(joint_num):</span><br><span class="line">                v = fr.readline().split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">                <span class="keyword">if</span> joint &lt; max_V <span class="keyword">and</span> person &lt; max_M:</span><br><span class="line">                    point[<span class="number">0</span>,frame,joint,person] = <span class="built_in">float</span>(v[<span class="number">0</span>])<span class="comment">#一个关节的一个坐标</span></span><br><span class="line">                    point[<span class="number">1</span>,frame,joint,person] = <span class="built_in">float</span>(v[<span class="number">1</span>])</span><br><span class="line">                    point[<span class="number">2</span>,frame,joint,person] = <span class="built_in">float</span>(v[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;read data done!&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(point.shape)</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过最大最小的坐标值来选取合适的坐标轴 </span></span><br><span class="line">xmax= np.<span class="built_in">max</span>(point[<span class="number">0</span>, :, :, :])+ <span class="number">0.5</span></span><br><span class="line">xmin= np.<span class="built_in">min</span>(point[<span class="number">0</span>, :, :, :])- <span class="number">0.5</span></span><br><span class="line">ymax= np.<span class="built_in">max</span>(point[<span class="number">1</span>, :, :, :])+ <span class="number">0.3</span></span><br><span class="line">ymin= np.<span class="built_in">min</span>(point[<span class="number">1</span>, :, :, :])- <span class="number">0.3</span></span><br><span class="line">zmax= np.<span class="built_in">max</span>(point[<span class="number">2</span>, :, :, :])</span><br><span class="line">zmin= np.<span class="built_in">min</span>(point[<span class="number">2</span>, :, :, :])</span><br><span class="line"> </span><br><span class="line">row= point.shape[<span class="number">1</span>] <span class="comment">#有多少帧</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 根据NTU骨架结构确定哪几个节点相连为骨骼</span></span><br><span class="line"><span class="comment"># 注意序号从0开始，需要减1</span></span><br><span class="line">arms= np.array([<span class="number">24</span>,<span class="number">12</span>,<span class="number">11</span>,<span class="number">10</span>,<span class="number">9</span>,<span class="number">21</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">20</span>])-<span class="number">1</span> <span class="comment">#胳膊</span></span><br><span class="line">rightHand= np.array([<span class="number">12</span>,<span class="number">25</span>])-<span class="number">1</span> <span class="comment">#右手</span></span><br><span class="line">leftHand= np.array([<span class="number">8</span>,<span class="number">23</span>])-<span class="number">1</span> <span class="comment">#左手</span></span><br><span class="line">legs= np.array([<span class="number">20</span>,<span class="number">19</span>,<span class="number">18</span>,<span class="number">17</span>,<span class="number">1</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>]) - <span class="number">1</span> <span class="comment">#腿</span></span><br><span class="line">body= np.array([<span class="number">4</span>,<span class="number">3</span>,<span class="number">21</span>,<span class="number">2</span>,<span class="number">1</span>]) -<span class="number">1</span>  <span class="comment">#身体</span></span><br><span class="line"> </span><br><span class="line">n= <span class="number">0</span>     <span class="comment"># 从第n帧开始展示</span></span><br><span class="line">m= <span class="number">2</span> <span class="comment"># 到第m帧结束，n&lt;m&lt;row，这个m可以选取一个小于最大帧数的阈值，便于查看，若m=1则展示一帧</span></span><br><span class="line">plt.figure()</span><br><span class="line">plt.ion() <span class="comment">#使用plt.ion()这个函数，使matplotlib的显示模式转换为交互（interactive）模式。即使在脚本中遇到plt.show()，代码还是会继续执行。</span></span><br><span class="line">color_point = <span class="string">&#x27;#03ff&#x27;</span> <span class="comment">#关节点颜色,可输入16进制调色板</span></span><br><span class="line">color_bone = <span class="string">&#x27;red&#x27;</span> <span class="comment">#骨骼颜色</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n, m):</span><br><span class="line">    plt.cla() <span class="comment">## Clear axis即清除当前图形中的当前活动轴。其他轴不受影响。</span></span><br><span class="line">    plt.scatter(point[<span class="number">0</span>, i, :, :], point[<span class="number">1</span>, i, :, :], c=color_point, s=<span class="number">40.0</span>) <span class="comment">#通过散点图绘制关节点</span></span><br><span class="line">    <span class="comment">#通过直线图绘制两点间的连接线，即骨骼</span></span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, arms,<span class="number">0</span>], point[<span class="number">1</span>, i, arms,<span class="number">0</span>], c=color_bone, lw=<span class="number">2.0</span>) </span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, rightHand,<span class="number">0</span>], point[<span class="number">1</span>, i, rightHand,<span class="number">0</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, leftHand,<span class="number">0</span>], point[<span class="number">1</span>, i, leftHand,<span class="number">0</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, legs,<span class="number">0</span>], point[<span class="number">1</span>, i, legs,<span class="number">0</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, body,<span class="number">0</span>], point[<span class="number">1</span>, i, body,<span class="number">0</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#第二个骨架，如果有的话</span></span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, arms,<span class="number">1</span>], point[<span class="number">1</span>, i, arms,<span class="number">1</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, rightHand,<span class="number">1</span>], point[<span class="number">1</span>, i, rightHand,<span class="number">1</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, leftHand,<span class="number">1</span>], point[<span class="number">1</span>, i, leftHand,<span class="number">1</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, legs,<span class="number">1</span>], point[<span class="number">1</span>, i, legs,<span class="number">1</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">    plt.plot(point[<span class="number">0</span>, i, body,<span class="number">1</span>], point[<span class="number">1</span>, i, body,<span class="number">1</span>], c=color_bone, lw=<span class="number">2.0</span>)</span><br><span class="line">     </span><br><span class="line">    plt.text(xmax-<span class="number">0.5</span>, ymax-<span class="number">0.1</span>,<span class="string">&#x27;frame: &#123;&#125;/&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(i, row-<span class="number">1</span>)) <span class="comment">#这是第几帧</span></span><br><span class="line">    <span class="comment"># plt.text(xmax-0.8, ymax-0.4, &#x27;label: &#x27; + str(label[i]))</span></span><br><span class="line">    plt.xlim(xmin, xmax) <span class="comment">#坐标轴</span></span><br><span class="line">    plt.ylim(ymin, ymax)</span><br><span class="line">    plt.pause(<span class="number">0.001</span>)</span><br><span class="line"> </span><br><span class="line">plt.ioff()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -496,7 +465,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/golang/" rel="tag"># golang</a>
+            <a href="/tags/python/" rel="tag"># python</a>
           
         </div>
       
@@ -524,8 +493,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/05/18/docker/" rel="next" title="docker使用教程">
-                <i class="fa fa-chevron-left"></i> docker使用教程
+              <a href="/2022/05/26/scp/" rel="next" title="scp指令--文件传输">
+                <i class="fa fa-chevron-left"></i> scp指令--文件传输
               </a>
             
           </div>
@@ -533,10 +502,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2022/05/21/golang2/" rel="prev" title="golang入门(2) 结构体，方法，接口">
-                golang入门(2) 结构体，方法，接口 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -591,17 +556,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -616,7 +572,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -627,7 +583,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -638,7 +594,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -661,22 +617,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%EF%BC%8C%E7%89%88%E6%9C%AC0-1"><span class="nav-number">1.</span> <span class="nav-text">开始，版本0.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC0-2%EF%BC%9A%E6%8C%87%E5%AE%9A%E9%97%AE%E5%80%99%E7%9A%84%E6%8E%A5%E5%8F%97%E8%80%85"><span class="nav-number">2.</span> <span class="nav-text">版本0.2：指定问候的接受者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC0-3%EF%BC%9A%E5%A4%9A%E7%A7%8D%E8%AF%AD%E8%A8%80"><span class="nav-number">3.</span> <span class="nav-text">版本0.3：多种语言</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -705,7 +645,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">6.4k</span>
+    <span title="Site words total count">5.8k</span>
   
 </div>
 
