@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python," />
 
 
 
@@ -79,12 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Reno&#39;s Notebook">
-<meta property="og:url" content="http://example.com/tags/ctf/index.html">
+<meta name="description" content="让快速排序变得更快。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于快速排序的一些优化方法">
+<meta property="og:url" content="http://example.com/2022/09/15/quicksort/index.html">
 <meta property="og:site_name" content="Reno&#39;s Notebook">
+<meta property="og:description" content="让快速排序变得更快。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-15T11:26:12.000Z">
+<meta property="article:modified_time" content="2022-09-15T14:53:28.593Z">
 <meta property="article:author" content="Yuning Ding">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 
 
@@ -115,12 +120,12 @@
 
 
 
-  <link rel="canonical" href="http://example.com/tags/ctf/"/>
+  <link rel="canonical" href="http://example.com/2022/09/15/quicksort/"/>
 
 
 
 
-  <title>Tag: ctf | Reno's Notebook</title>
+  <title>关于快速排序的一些优化方法 | Reno's Notebook</title>
   
 
 
@@ -148,7 +153,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -286,82 +291,243 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>ctf<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/15/quicksort/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Reno's Notebook">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2021/06/01/ciscn2021/" itemprop="url">
-              
-                <span itemprop="name">ciscn2021公开赛 write-up</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">关于快速排序的一些优化方法</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2021-06-01T12:14:33+08:00"
-              content="2021-06-01" >
-          06-01
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-09-15T19:26:12+08:00">
+                2022-09-15
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/09/15/quicksort/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/09/15/quicksort/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  609
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  让快速排序变得更快。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/08/25/ciscn2020/" itemprop="url">
-              
-                <span itemprop="name">ciscn2020公开赛 write-up</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-08-25T22:34:12+08:00"
-              content="2020-08-25" >
-          08-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <h2 id="排序前的有序性检查"><a href="#排序前的有序性检查" class="headerlink" title="排序前的有序性检查"></a>排序前的有序性检查</h2><p>我们可以在快速排序算法的每个递归子数组排序前进行有序性检查，无序时才进行排序操作。</p>
+<h2 id="避免重复交换和枢轴重复的数字"><a href="#避免重复交换和枢轴重复的数字" class="headerlink" title="避免重复交换和枢轴重复的数字"></a>避免重复交换和枢轴重复的数字</h2><p>我们可以对每趟使用一种三路的划分策略，既将数组分为比目标大，比目标小和等于目标三个部分。使用left和right表示最左侧和最右侧的下标，下标l和r表示左侧和右侧的游标，i表示中间的游标，递归算法设计如下：</p>
+<ul>
+<li>初始化：left=0，right=数组长度-1，l=left,r=right,i=l+1，数组array</li>
+<li>递归终止判定：left&gt;=right</li>
+<li>递归过程：当i&lt;=r时，循环比对pivot枢轴和array[i]，若array[i]小于pivot,i和l位置互换，i++,l++；若array[i]大于pivot,i和r位置互换,r—;若array[i]=pivot，i++。</li>
+<li>然后分治递归（left,l-1)和(r+1,right)。</li>
+</ul>
+<h2 id="三数取中法"><a href="#三数取中法" class="headerlink" title="三数取中法"></a>三数取中法</h2><p>取三个元素（一般是第一个、最后一个和中间的元素）的中间值作为基准。</p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;array,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> tmp=array[left];</span><br><span class="line">    array[left]=array[right];</span><br><span class="line">    array[right]=tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">checkSorted</span><span class="params">(vector&lt;<span class="type">int</span>&gt; array,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> cmp=array[left];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=left;i&lt;=right;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(array[i]&gt;=cmp) cmp=array[i];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">getPivot</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;array,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> x1=array[left];</span><br><span class="line">    <span class="type">int</span> x2=array[right];</span><br><span class="line">    <span class="type">int</span> x3=array[(left+right)/<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span>(x1&gt;=x2 &amp;&amp; x1&gt;=x3)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x2&gt;=x1 &amp;&amp; x2&gt;=x3)&#123;</span><br><span class="line">        <span class="built_in">swap</span>(array,left,right);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">swap</span>(array,left,(left+right)/<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">quicksort</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;array,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(left&gt;=right) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">checkSorted</span>(array, left, right)) <span class="keyword">return</span>;</span><br><span class="line">    <span class="type">int</span> l=left;</span><br><span class="line">    <span class="type">int</span> r=right;</span><br><span class="line">    <span class="type">int</span> i=left+<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> cmp=array[l];</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=r)&#123;</span><br><span class="line">        <span class="keyword">if</span>(array[i]&lt;cmp)&#123;</span><br><span class="line">            <span class="built_in">swap</span>(array,i,l);</span><br><span class="line">            i++;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(array[i]&gt;cmp)&#123;</span><br><span class="line">            <span class="built_in">swap</span>(array,i,r);</span><br><span class="line">            r--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">quicksort</span>(array,left,l<span class="number">-1</span>);</span><br><span class="line">    <span class="built_in">quicksort</span>(array,r+<span class="number">1</span>,right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt; array)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;array.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">        cout&lt;&lt;array[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; array=&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">2</span>&#125;;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;初始数组顺序&quot;</span>&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">printArray</span>(array);</span><br><span class="line">    <span class="type">int</span> left=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> right=array.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">quicksort</span>(array,left,right);</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;排序后数组顺序&quot;</span>&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">printArray</span>(array);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/09/14/leetcode4/" rel="next" title="算法题整理--链表基础">
+                <i class="fa fa-chevron-left"></i> 算法题整理--链表基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -369,6 +535,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -389,8 +562,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -450,6 +632,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E5%89%8D%E7%9A%84%E6%9C%89%E5%BA%8F%E6%80%A7%E6%A3%80%E6%9F%A5"><span class="nav-number">1.</span> <span class="nav-text">排序前的有序性检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E4%BA%A4%E6%8D%A2%E5%92%8C%E6%9E%A2%E8%BD%B4%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97"><span class="nav-number">2.</span> <span class="nav-text">避免重复交换和枢轴重复的数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E6%95%B0%E5%8F%96%E4%B8%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">三数取中法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">代码示例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -620,6 +818,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
