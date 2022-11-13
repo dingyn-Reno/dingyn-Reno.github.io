@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文旨在设计一个方便修改使用的，基于pytorch的深度学习训练代码框架。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个基于pytorch的深度学习训练代码框架">
+<meta property="og:url" content="http://example.com/2022/11/11/modeldemo/index.html">
+<meta property="og:site_name" content="Reno&#39;s Notebook">
+<meta property="og:description" content="本文旨在设计一个方便修改使用的，基于pytorch的深度学习训练代码框架。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-11T12:26:54.000Z">
+<meta property="article:modified_time" content="2022-11-13T08:50:12.502Z">
+<meta property="article:author" content="Yuning Ding">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/11/11/modeldemo/"/>
+
+
+
+
+  <title>一个基于pytorch的深度学习训练代码框架 | Reno's Notebook</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', '[object Object]', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Reno's Notebook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/11/modeldemo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Reno's Notebook">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一个基于pytorch的深度学习训练代码框架</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-11-11T20:26:54+08:00">
+                2022-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/11/11/modeldemo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/11/11/modeldemo/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  3.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  21
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  本文旨在设计一个方便修改使用的，基于pytorch的深度学习训练代码框架。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>pytorch是笔者当前主要使用的深度学习框架，但每次搭建训练代码时，笔者都要陷入繁琐的代码架构编写和配置参数文件的痛苦中。因此，笔者决定设计一个稳定的神经网络的训练框架，这样只要进行一些必要的配置，就可以开始愉快的炼丹了。</p>
+<p>本文主要介绍代码的每一部分的功能，对于只想使用本项目的，可直接跳转项目地址，浏览代码的使用说明：<a target="_blank" rel="noopener" href="https://github.com/dingyn-Reno/torch-model-demo">https://github.com/dingyn-Reno/torch-model-demo</a></p>
+<h2 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-conig 存放配置文件</span><br><span class="line">--config.yaml</span><br><span class="line">-feeder 存放数据加载和处理文件</span><br><span class="line">--feeder.py</span><br><span class="line">-model 存放模型</span><br><span class="line">-torchlight torch的工具包</span><br><span class="line">-main.py 主函数</span><br><span class="line">-send_mail.py 邮件发送函数</span><br></pre></td></tr></table></figure>
+<h2 id="训练前准备"><a href="#训练前准备" class="headerlink" title="训练前准备"></a>训练前准备</h2><p>在main.py里，我们要完成训练前的准备代码以及训练和测试的流程代码。</p>
+<h3 id="导入必要的包"><a href="#导入必要的包" class="headerlink" title="导入必要的包"></a>导入必要的包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> inspect</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line"><span class="keyword">import</span> traceback</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">from</span> torchlight <span class="keyword">import</span> DictAction</span><br><span class="line"><span class="comment"># torch</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.backends.cudnn <span class="keyword">as</span> cudnn</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">import</span> yaml</span><br><span class="line"><span class="keyword">from</span> tensorboardX <span class="keyword">import</span> SummaryWriter</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> resource</span><br><span class="line"><span class="keyword">from</span> send_mail <span class="keyword">import</span> send</span><br><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br></pre></td></tr></table></figure>
+<h3 id="设置资源管理"><a href="#设置资源管理" class="headerlink" title="设置资源管理"></a>设置资源管理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rlimit = resource.getrlimit(resource.RLIMIT_NOFILE)</span><br><span class="line">resource.setrlimit(resource.RLIMIT_NOFILE, (<span class="number">2048</span>, rlimit[<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+<h3 id="设置初始化种子"><a href="#设置初始化种子" class="headerlink" title="设置初始化种子"></a>设置初始化种子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">init_seed</span>(<span class="params">seed</span>):</span><br><span class="line">    torch.cuda.manual_seed_all(seed)</span><br><span class="line">    torch.manual_seed(seed)</span><br><span class="line">    np.random.seed(seed)</span><br><span class="line">    random.seed(seed)</span><br><span class="line">    <span class="comment"># torch.backends.cudnn.enabled = False</span></span><br><span class="line">    torch.backends.cudnn.deterministic = <span class="literal">True</span></span><br><span class="line">    torch.backends.cudnn.benchmark = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h3 id="设置导入类的函数"><a href="#设置导入类的函数" class="headerlink" title="设置导入类的函数"></a>设置导入类的函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">import_class</span>(<span class="params">import_str</span>):</span><br><span class="line">    mod_str, _sep, class_str = import_str.rpartition(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">    <span class="built_in">__import__</span>(mod_str)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">getattr</span>(sys.modules[mod_str], class_str)</span><br><span class="line">    <span class="keyword">except</span> AttributeError:</span><br><span class="line">        <span class="keyword">raise</span> ImportError(<span class="string">&#x27;Class %s cannot be found (%s)&#x27;</span> % (class_str, traceback.format_exception(*sys.exc_info())))</span><br></pre></td></tr></table></figure>
+<h3 id="string转bool函数"><a href="#string转bool函数" class="headerlink" title="string转bool函数"></a>string转bool函数</h3><p>用于处理bool类参数的输入</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">str2bool</span>(<span class="params">v</span>):</span><br><span class="line">    <span class="keyword">if</span> v.lower() <span class="keyword">in</span> (<span class="string">&#x27;yes&#x27;</span>, <span class="string">&#x27;true&#x27;</span>, <span class="string">&#x27;t&#x27;</span>, <span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;1&#x27;</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">elif</span> v.lower() <span class="keyword">in</span> (<span class="string">&#x27;no&#x27;</span>, <span class="string">&#x27;false&#x27;</span>, <span class="string">&#x27;f&#x27;</span>, <span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;0&#x27;</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> argparse.ArgumentTypeError(<span class="string">&#x27;Unsupported value encountered.&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="读取默认参数"><a href="#读取默认参数" class="headerlink" title="读取默认参数"></a>读取默认参数</h3><p>参数优先级：命令行&gt;配置文件&gt;默认</p>
+<p>不是所有的都有用，也可以视情况添加新的函数，值得注意的是train_feeder_args、test_feeder_args、model_args这三个函数，通过dictaction方法传入了一组参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_parser</span>():</span><br><span class="line">    <span class="comment"># parameter priority: command line &gt; config &gt; default</span></span><br><span class="line">    parser = argparse.ArgumentParser(</span><br><span class="line">        description=<span class="string">&#x27;Spatial Temporal Graph Convolution Network&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--work-dir&#x27;</span>,</span><br><span class="line">        default=<span class="string">&#x27;./work_dir/temp&#x27;</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the work folder for storing results&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    parser.add_argument(<span class="string">&#x27;-model_saved_name&#x27;</span>, default=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--config&#x27;</span>,</span><br><span class="line">        default=<span class="string">&#x27;./config/nturgbd-cross-view/test_bone.yaml&#x27;</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;path to the configuration file&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># processor</span></span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--phase&#x27;</span>, default=<span class="string">&#x27;train&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;must be train or test&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--save-score&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=str2bool,</span><br><span class="line">        default=<span class="literal">False</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;if ture, the classification score will be stored&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># visulize and debug</span></span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--seed&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">1</span>, <span class="built_in">help</span>=<span class="string">&#x27;random seed for pytorch&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--log-interval&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">int</span>,</span><br><span class="line">        default=<span class="number">100</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the interval for printing messages (#iteration)&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--save-interval&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">int</span>,</span><br><span class="line">        default=<span class="number">1</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the interval for storing models (#iteration)&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--save-epoch&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">int</span>,</span><br><span class="line">        default=<span class="number">30</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the start epoch to save model (#iteration)&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--eval-interval&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">int</span>,</span><br><span class="line">        default=<span class="number">5</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the interval for evaluating models (#iteration)&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--print-log&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=str2bool,</span><br><span class="line">        default=<span class="literal">True</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;print logging or not&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--show-topk&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">int</span>,</span><br><span class="line">        default=[<span class="number">1</span>, <span class="number">5</span>],</span><br><span class="line">        nargs=<span class="string">&#x27;+&#x27;</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;which Top K accuracy will be shown&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># feeder</span></span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--feeder&#x27;</span>, default=<span class="string">&#x27;feeder.feeder&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;data loader will be used&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--num-worker&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">int</span>,</span><br><span class="line">        default=<span class="number">16</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the number of worker for data loader&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--train-feeder-args&#x27;</span>,</span><br><span class="line">        action=DictAction,</span><br><span class="line">        default=<span class="built_in">dict</span>(),</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the arguments of data loader for training&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--test-feeder-args&#x27;</span>,</span><br><span class="line">        action=DictAction,</span><br><span class="line">        default=<span class="built_in">dict</span>(),</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the arguments of data loader for test&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># model</span></span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--model&#x27;</span>, default=<span class="literal">None</span>, <span class="built_in">help</span>=<span class="string">&#x27;the model will be used&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--model-args&#x27;</span>,</span><br><span class="line">        action=DictAction,</span><br><span class="line">        default=<span class="built_in">dict</span>(),</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the arguments of model&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--weights&#x27;</span>,</span><br><span class="line">        default=<span class="literal">None</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the weights for network initialization&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--ignore-weights&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">str</span>,</span><br><span class="line">        default=[],</span><br><span class="line">        nargs=<span class="string">&#x27;+&#x27;</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the name of weights which will be ignored in the initialization&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># optim</span></span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--base-lr&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">float</span>, default=<span class="number">0.01</span>, <span class="built_in">help</span>=<span class="string">&#x27;initial learning rate&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--step&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">int</span>,</span><br><span class="line">        default=[<span class="number">20</span>, <span class="number">40</span>, <span class="number">60</span>],</span><br><span class="line">        nargs=<span class="string">&#x27;+&#x27;</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the epoch where optimizer reduce the learning rate&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--device&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">int</span>,</span><br><span class="line">        default=<span class="number">0</span>,</span><br><span class="line">        nargs=<span class="string">&#x27;+&#x27;</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;the indexes of GPUs for training or testing&#x27;</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--optimizer&#x27;</span>, default=<span class="string">&#x27;SGD&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;type of optimizer&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--nesterov&#x27;</span>, <span class="built_in">type</span>=str2bool, default=<span class="literal">False</span>, <span class="built_in">help</span>=<span class="string">&#x27;use nesterov or not&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--batch-size&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">256</span>, <span class="built_in">help</span>=<span class="string">&#x27;training batch size&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--test-batch-size&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">256</span>, <span class="built_in">help</span>=<span class="string">&#x27;test batch size&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--start-epoch&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">int</span>,</span><br><span class="line">        default=<span class="number">0</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;start training from which epoch&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--num-epoch&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">int</span>,</span><br><span class="line">        default=<span class="number">80</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;stop training in which epoch&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--weight-decay&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">float</span>,</span><br><span class="line">        default=<span class="number">0.0005</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;weight decay for optimizer&#x27;</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">&#x27;--lr-decay-rate&#x27;</span>,</span><br><span class="line">        <span class="built_in">type</span>=<span class="built_in">float</span>,</span><br><span class="line">        default=<span class="number">0.1</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&#x27;decay rate for learning rate&#x27;</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--warm_up_epoch&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">0</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--classes&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">10</span>)</span><br><span class="line">    <span class="keyword">return</span> parser</span><br></pre></td></tr></table></figure>
+<h2 id="训练代码"><a href="#训练代码" class="headerlink" title="训练代码"></a>训练代码</h2><p>接着，我们在main.py里编写训练/测试代码，首先定义class Processor，我们的代码将在这里完成。</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, arg</span>):</span><br><span class="line">    self.arg = arg</span><br><span class="line">    self.save_arg()</span><br><span class="line">    <span class="keyword">if</span> arg.phase == <span class="string">&#x27;train&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> arg.train_feeder_args[<span class="string">&#x27;debug&#x27;</span>]:</span><br><span class="line">            arg.model_saved_name = os.path.join(arg.work_dir, <span class="string">&#x27;runs&#x27;</span>)</span><br><span class="line">            <span class="keyword">if</span> os.path.isdir(arg.model_saved_name):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;log_dir: &#x27;</span>, arg.model_saved_name, <span class="string">&#x27;already exist&#x27;</span>)</span><br><span class="line">                answer = <span class="built_in">input</span>(<span class="string">&#x27;delete it? y/n:&#x27;</span>)</span><br><span class="line">                <span class="keyword">if</span> answer == <span class="string">&#x27;y&#x27;</span>:</span><br><span class="line">                    shutil.rmtree(arg.model_saved_name)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;Dir removed: &#x27;</span>, arg.model_saved_name)</span><br><span class="line">                    <span class="built_in">input</span>(<span class="string">&#x27;Refresh the website of tensorboard by pressing any keys&#x27;</span>)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;Dir not removed: &#x27;</span>, arg.model_saved_name)</span><br><span class="line">            self.train_writer = SummaryWriter(os.path.join(arg.model_saved_name, <span class="string">&#x27;train&#x27;</span>), <span class="string">&#x27;train&#x27;</span>)</span><br><span class="line">            self.val_writer = SummaryWriter(os.path.join(arg.model_saved_name, <span class="string">&#x27;val&#x27;</span>), <span class="string">&#x27;val&#x27;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.train_writer = self.val_writer = SummaryWriter(os.path.join(arg.model_saved_name, <span class="string">&#x27;test&#x27;</span>), <span class="string">&#x27;test&#x27;</span>)</span><br><span class="line">    self.global_step = <span class="number">0</span></span><br><span class="line">    self.load_model()</span><br><span class="line">    <span class="keyword">if</span> self.arg.phase == <span class="string">&#x27;model_size&#x27;</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        self.load_optimizer()</span><br><span class="line">        self.load_data()</span><br><span class="line">    self.lr = self.arg.base_lr</span><br><span class="line">    self.best_acc = <span class="number">0</span></span><br><span class="line">    self.best_acc_epoch = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    self.model = self.model.cuda(self.output_device)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">type</span>(self.arg.device) <span class="keyword">is</span> <span class="built_in">list</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(self.arg.device) &gt; <span class="number">1</span>:</span><br><span class="line">            self.model = nn.DataParallel(</span><br><span class="line">                self.model,</span><br><span class="line">                device_ids=self.arg.device,</span><br><span class="line">                output_device=self.output_device)</span><br></pre></td></tr></table></figure>
+<h3 id="读取数据"><a href="#读取数据" class="headerlink" title="读取数据"></a>读取数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 数据读取部分，编写feeder文件夹中的数据处理代码，并修改dataset参数设置</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">load_data</span>(<span class="params">self</span>):</span><br><span class="line">        Feeder = import_class(self.arg.feeder)</span><br><span class="line">        self.data_loader = <span class="built_in">dict</span>()</span><br><span class="line">        <span class="keyword">if</span> self.arg.phase == <span class="string">&#x27;train&#x27;</span>:</span><br><span class="line">            self.data_loader[<span class="string">&#x27;train&#x27;</span>] = torch.utils.data.DataLoader(</span><br><span class="line">                dataset=Feeder(**self.arg.train_feeder_args),</span><br><span class="line">                batch_size=self.arg.batch_size,</span><br><span class="line">                shuffle=<span class="literal">True</span>,</span><br><span class="line">                num_workers=self.arg.num_worker,</span><br><span class="line">                drop_last=<span class="literal">True</span>,</span><br><span class="line">                worker_init_fn=init_seed)</span><br><span class="line">        self.data_loader[<span class="string">&#x27;test&#x27;</span>] = torch.utils.data.DataLoader(</span><br><span class="line">            dataset=Feeder(**self.arg.test_feeder_args),</span><br><span class="line">            batch_size=self.arg.test_batch_size,</span><br><span class="line">            shuffle=<span class="literal">False</span>,</span><br><span class="line">            num_workers=self.arg.num_worker,</span><br><span class="line">            drop_last=<span class="literal">False</span>,</span><br><span class="line">            worker_init_fn=init_seed)</span><br></pre></td></tr></table></figure>
+<h3 id="读取模型"><a href="#读取模型" class="headerlink" title="读取模型"></a>读取模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2 模型读取部分，编写model文件夹中的模型代码，修改Model函数参数</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">load_model</span>(<span class="params">self</span>):</span><br><span class="line">        output_device = self.arg.device[<span class="number">0</span>] <span class="keyword">if</span> <span class="built_in">type</span>(self.arg.device) <span class="keyword">is</span> <span class="built_in">list</span> <span class="keyword">else</span> self.arg.device</span><br><span class="line">        self.output_device = output_device</span><br><span class="line">        Model = import_class(self.arg.model)</span><br><span class="line">        shutil.copy2(inspect.getfile(Model), self.arg.work_dir)</span><br><span class="line">        <span class="built_in">print</span>(Model)</span><br><span class="line">        <span class="comment"># 模型参数配置位置</span></span><br><span class="line">        self.model = Model(**self.arg.model_args)</span><br><span class="line">        <span class="built_in">print</span>(self.model)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.arg.weights:</span><br><span class="line">            self.global_step = <span class="built_in">int</span>(arg.weights[:-<span class="number">3</span>].split(<span class="string">&#x27;-&#x27;</span>)[-<span class="number">1</span>])</span><br><span class="line">            self.print_log(<span class="string">&#x27;Load weights from &#123;&#125;.&#x27;</span>.<span class="built_in">format</span>(self.arg.weights))</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;.pkl&#x27;</span> <span class="keyword">in</span> self.arg.weights:</span><br><span class="line">                <span class="keyword">with</span> <span class="built_in">open</span>(self.arg.weights, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                    weights = pickle.load(f)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                weights = torch.load(self.arg.weights)</span><br><span class="line"></span><br><span class="line">            weights = OrderedDict([[k.split(<span class="string">&#x27;module.&#x27;</span>)[-<span class="number">1</span>], v.cuda(output_device)] <span class="keyword">for</span> k, v <span class="keyword">in</span> weights.items()])</span><br><span class="line"></span><br><span class="line">            keys = <span class="built_in">list</span>(weights.keys())</span><br><span class="line">            <span class="keyword">for</span> w <span class="keyword">in</span> self.arg.ignore_weights:</span><br><span class="line">                <span class="keyword">for</span> key <span class="keyword">in</span> keys:</span><br><span class="line">                    <span class="keyword">if</span> w <span class="keyword">in</span> key:</span><br><span class="line">                        <span class="keyword">if</span> weights.pop(key, <span class="literal">None</span>) <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                            self.print_log(<span class="string">&#x27;Sucessfully Remove Weights: &#123;&#125;.&#x27;</span>.<span class="built_in">format</span>(key))</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            self.print_log(<span class="string">&#x27;Can Not Remove Weights: &#123;&#125;.&#x27;</span>.<span class="built_in">format</span>(key))</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                self.model.load_state_dict(weights)</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                state = self.model.state_dict()</span><br><span class="line">                diff = <span class="built_in">list</span>(<span class="built_in">set</span>(state.keys()).difference(<span class="built_in">set</span>(weights.keys())))</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;Can not find these weights:&#x27;</span>)</span><br><span class="line">                <span class="keyword">for</span> d <span class="keyword">in</span> diff:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;  &#x27;</span> + d)</span><br><span class="line">                state.update(weights)</span><br><span class="line">                self.model.load_state_dict(state)</span><br></pre></td></tr></table></figure>
+<h3 id="配置优化器"><a href="#配置优化器" class="headerlink" title="配置优化器"></a>配置优化器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3 优化器配置，如果使用需要更新参数的loss，需要把loss置入损失函数</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">load_optimizer</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> self.arg.optimizer == <span class="string">&#x27;SGD&#x27;</span>:</span><br><span class="line">            self.optimizer = optim.SGD(</span><br><span class="line">                self.model.parameters(),</span><br><span class="line">                lr=self.arg.base_lr,</span><br><span class="line">                momentum=<span class="number">0.9</span>,</span><br><span class="line">                nesterov=self.arg.nesterov,</span><br><span class="line">                weight_decay=self.arg.weight_decay)</span><br><span class="line">        <span class="keyword">elif</span> self.arg.optimizer == <span class="string">&#x27;Adam&#x27;</span>:</span><br><span class="line">            self.optimizer = optim.Adam(</span><br><span class="line">                self.model.parameters(),</span><br><span class="line">                lr=self.arg.base_lr,</span><br><span class="line">                weight_decay=self.arg.weight_decay)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError()</span><br><span class="line">        self.print_log(<span class="string">&#x27;using warm up, epoch: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(self.arg.warm_up_epoch))</span><br></pre></td></tr></table></figure>
+<h3 id="保存参数"><a href="#保存参数" class="headerlink" title="保存参数"></a>保存参数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">save_arg</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="comment"># save arg</span></span><br><span class="line">    arg_dict = <span class="built_in">vars</span>(self.arg)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(self.arg.work_dir):</span><br><span class="line">        os.makedirs(self.arg.work_dir)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;&#123;&#125;/config.yaml&#x27;</span>.<span class="built_in">format</span>(self.arg.work_dir), <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(<span class="string">f&quot;# command line: <span class="subst">&#123;<span class="string">&#x27; &#x27;</span>.join(sys.argv)&#125;</span>\n\n&quot;</span>)</span><br><span class="line">        yaml.dump(arg_dict, f)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="学习率设定"><a href="#学习率设定" class="headerlink" title="学习率设定"></a>学习率设定</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">adjust_learning_rate</span>(<span class="params">self, epoch</span>):</span><br><span class="line">    <span class="keyword">if</span> self.arg.optimizer == <span class="string">&#x27;SGD&#x27;</span> <span class="keyword">or</span> self.arg.optimizer == <span class="string">&#x27;Adam&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> epoch &lt; self.arg.warm_up_epoch:</span><br><span class="line">            lr = self.arg.base_lr * (epoch + <span class="number">1</span>) / self.arg.warm_up_epoch</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            lr = self.arg.base_lr * (</span><br><span class="line">                    self.arg.lr_decay_rate ** np.<span class="built_in">sum</span>(epoch &gt;= np.array(self.arg.step)))</span><br><span class="line">        <span class="keyword">for</span> param_group <span class="keyword">in</span> self.optimizer.param_groups:</span><br><span class="line">            param_group[<span class="string">&#x27;lr&#x27;</span>] = lr</span><br><span class="line">        <span class="keyword">return</span> lr</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValueError()</span><br></pre></td></tr></table></figure>
+<h3 id="打印时间"><a href="#打印时间" class="headerlink" title="打印时间"></a>打印时间</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">print_time</span>(<span class="params">self</span>):</span><br><span class="line">    localtime = time.asctime(time.localtime(time.time()))</span><br><span class="line">    self.print_log(<span class="string">&quot;Local current time :  &quot;</span> + localtime)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="print同时写入文件"><a href="#print同时写入文件" class="headerlink" title="print同时写入文件"></a>print同时写入文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">print_log</span>(<span class="params">self, <span class="built_in">str</span>, print_time=<span class="literal">True</span></span>):</span><br><span class="line">    <span class="keyword">if</span> print_time:</span><br><span class="line">        localtime = time.asctime(time.localtime(time.time()))</span><br><span class="line">        <span class="built_in">str</span> = <span class="string">&quot;[ &quot;</span> + localtime + <span class="string">&#x27; ] &#x27;</span> + <span class="built_in">str</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>)</span><br><span class="line">    <span class="keyword">if</span> self.arg.print_log:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;&#123;&#125;/log.txt&#x27;</span>.<span class="built_in">format</span>(self.arg.work_dir), <span class="string">&#x27;a&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="built_in">print</span>(<span class="built_in">str</span>, file=f)</span><br></pre></td></tr></table></figure>
+<h3 id="记录时间"><a href="#记录时间" class="headerlink" title="记录时间"></a>记录时间</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">record_time</span>(<span class="params">self</span>):</span><br><span class="line">    self.cur_time = time.time()</span><br><span class="line">    <span class="keyword">return</span> self.cur_time</span><br></pre></td></tr></table></figure>
+<h3 id="计算分段时间"><a href="#计算分段时间" class="headerlink" title="计算分段时间"></a>计算分段时间</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">split_time</span>(<span class="params">self</span>):</span><br><span class="line">    split_time = time.time() - self.cur_time</span><br><span class="line">    self.record_time()</span><br><span class="line">    <span class="keyword">return</span> split_time</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="设置损失函数"><a href="#设置损失函数" class="headerlink" title="设置损失函数"></a>设置损失函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置损失函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">set_loss</span>(<span class="params">self</span>):</span><br><span class="line">    self.loss = nn.CrossEntropyLoss().cuda(self.output_device)</span><br></pre></td></tr></table></figure>
+<h3 id="计算准确率"><a href="#计算准确率" class="headerlink" title="计算准确率"></a>计算准确率</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算准确率</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_acc</span>(<span class="params">self,output,label</span>):</span><br><span class="line">    value, predict_label = torch.<span class="built_in">max</span>(output.data, <span class="number">1</span>)</span><br><span class="line">    acc = torch.mean((predict_label == label.data).<span class="built_in">float</span>())</span><br><span class="line">    <span class="keyword">return</span> acc</span><br></pre></td></tr></table></figure>
+<h3 id="启动训练"><a href="#启动训练" class="headerlink" title="启动训练"></a>启动训练</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">start</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">if</span> self.arg.phase == <span class="string">&#x27;train&#x27;</span>:</span><br><span class="line">        self.print_log(<span class="string">&#x27;Parameters:\n&#123;&#125;\n&#x27;</span>.<span class="built_in">format</span>(<span class="built_in">str</span>(<span class="built_in">vars</span>(self.arg))))</span><br><span class="line">        self.global_step = self.arg.start_epoch * <span class="built_in">len</span>(self.data_loader[<span class="string">&#x27;train&#x27;</span>]) / self.arg.batch_size</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">count_parameters</span>(<span class="params">model</span>):</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">sum</span>(p.numel() <span class="keyword">for</span> p <span class="keyword">in</span> model.parameters() <span class="keyword">if</span> p.requires_grad)</span><br><span class="line">        self.print_log(<span class="string">f&#x27;# Parameters: <span class="subst">&#123;count_parameters(self.model)&#125;</span>&#x27;</span>)</span><br><span class="line">        self.set_loss()</span><br><span class="line">        <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(self.arg.start_epoch, self.arg.num_epoch):</span><br><span class="line">            save_model = (((epoch + <span class="number">1</span>) % self.arg.save_interval == <span class="number">0</span>) <span class="keyword">or</span> (</span><br><span class="line">                    epoch + <span class="number">1</span> == self.arg.num_epoch)) <span class="keyword">and</span> (epoch+<span class="number">1</span>) &gt; self.arg.save_epoch</span><br><span class="line"></span><br><span class="line">            self.train(epoch, save_model=save_model)</span><br><span class="line"></span><br><span class="line">            self.<span class="built_in">eval</span>(epoch, save_score=self.arg.save_score, loader_name=[<span class="string">&#x27;test&#x27;</span>])</span><br><span class="line"></span><br><span class="line">        <span class="comment"># test the best model</span></span><br><span class="line">        weights_path = glob.glob(os.path.join(self.arg.work_dir, <span class="string">&#x27;runs-&#x27;</span>+<span class="built_in">str</span>(self.best_acc_epoch)+<span class="string">&#x27;*&#x27;</span>))[<span class="number">0</span>]</span><br><span class="line">        weights = torch.load(weights_path)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">type</span>(self.arg.device) <span class="keyword">is</span> <span class="built_in">list</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(self.arg.device) &gt; <span class="number">1</span>:</span><br><span class="line">                weights = OrderedDict([[<span class="string">&#x27;module.&#x27;</span>+k, v.cuda(self.output_device)] <span class="keyword">for</span> k, v <span class="keyword">in</span> weights.items()])</span><br><span class="line">        self.model.load_state_dict(weights)</span><br><span class="line"></span><br><span class="line">        wf = weights_path.replace(<span class="string">&#x27;.pt&#x27;</span>, <span class="string">&#x27;_wrong.txt&#x27;</span>)</span><br><span class="line">        rf = weights_path.replace(<span class="string">&#x27;.pt&#x27;</span>, <span class="string">&#x27;_right.txt&#x27;</span>)</span><br><span class="line">        self.arg.print_log = <span class="literal">False</span></span><br><span class="line">        self.<span class="built_in">eval</span>(epoch=<span class="number">0</span>, save_score=<span class="literal">True</span>, loader_name=[<span class="string">&#x27;test&#x27;</span>], wrong_file=wf, result_file=rf)</span><br><span class="line">        self.arg.print_log = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        num_params = <span class="built_in">sum</span>(p.numel() <span class="keyword">for</span> p <span class="keyword">in</span> self.model.parameters() <span class="keyword">if</span> p.requires_grad)</span><br><span class="line">        self.print_log(<span class="string">f&#x27;Best accuracy: <span class="subst">&#123;self.best_acc&#125;</span>&#x27;</span>)</span><br><span class="line">        self.print_log(<span class="string">f&#x27;Epoch number: <span class="subst">&#123;self.best_acc_epoch&#125;</span>&#x27;</span>)</span><br><span class="line">        self.print_log(<span class="string">f&#x27;Model name: <span class="subst">&#123;self.arg.work_dir&#125;</span>&#x27;</span>)</span><br><span class="line">        self.print_log(<span class="string">f&#x27;Model total number of params: <span class="subst">&#123;num_params&#125;</span>&#x27;</span>)</span><br><span class="line">        self.print_log(<span class="string">f&#x27;Weight decay: <span class="subst">&#123;self.arg.weight_decay&#125;</span>&#x27;</span>)</span><br><span class="line">        self.print_log(<span class="string">f&#x27;Base LR: <span class="subst">&#123;self.arg.base_lr&#125;</span>&#x27;</span>)</span><br><span class="line">        self.print_log(<span class="string">f&#x27;Batch Size: <span class="subst">&#123;self.arg.batch_size&#125;</span>&#x27;</span>)</span><br><span class="line">        self.print_log(<span class="string">f&#x27;Test Batch Size: <span class="subst">&#123;self.arg.test_batch_size&#125;</span>&#x27;</span>)</span><br><span class="line">        self.print_log(<span class="string">f&#x27;seed: <span class="subst">&#123;self.arg.seed&#125;</span>&#x27;</span>)</span><br><span class="line">        body = <span class="string">&quot;你的模型已经跑完，精度为&#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.best_acc)</span><br><span class="line">        send(body)</span><br><span class="line">    <span class="keyword">elif</span> self.arg.phase == <span class="string">&#x27;test&#x27;</span>:</span><br><span class="line">        wf = self.arg.weights.replace(<span class="string">&#x27;.pt&#x27;</span>, <span class="string">&#x27;_wrong.txt&#x27;</span>)</span><br><span class="line">        rf = self.arg.weights.replace(<span class="string">&#x27;.pt&#x27;</span>, <span class="string">&#x27;_right.txt&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.arg.weights <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&#x27;Please appoint --weights.&#x27;</span>)</span><br><span class="line">        self.arg.print_log = <span class="literal">False</span></span><br><span class="line">        self.print_log(<span class="string">&#x27;Model:   &#123;&#125;.&#x27;</span>.<span class="built_in">format</span>(self.arg.model))</span><br><span class="line">        self.print_log(<span class="string">&#x27;Weights: &#123;&#125;.&#x27;</span>.<span class="built_in">format</span>(self.arg.weights))</span><br><span class="line">        self.<span class="built_in">eval</span>(epoch=<span class="number">0</span>, save_score=self.arg.save_score, loader_name=[<span class="string">&#x27;test&#x27;</span>], wrong_file=wf, result_file=rf)</span><br><span class="line">        self.print_log(<span class="string">&#x27;Done.\n&#x27;</span>)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">self, epoch, save_model=<span class="literal">False</span></span>):</span><br><span class="line">    self.model.train()</span><br><span class="line">    self.print_log(<span class="string">&#x27;Training epoch: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(epoch + <span class="number">1</span>))</span><br><span class="line">    loader = self.data_loader[<span class="string">&#x27;train&#x27;</span>]</span><br><span class="line">    self.adjust_learning_rate(epoch)</span><br><span class="line">    loss_value = []</span><br><span class="line">    acc_value = []</span><br><span class="line">    self.train_writer.add_scalar(<span class="string">&#x27;epoch&#x27;</span>, epoch, self.global_step)</span><br><span class="line">    self.record_time()</span><br><span class="line">    timer = <span class="built_in">dict</span>(dataloader=<span class="number">0.001</span>, model=<span class="number">0.001</span>, statistics=<span class="number">0.001</span>)</span><br><span class="line">    process = tqdm(loader, ncols=<span class="number">40</span>)</span><br><span class="line">    <span class="keyword">for</span> batch_idx, (data, label, index) <span class="keyword">in</span> <span class="built_in">enumerate</span>(process):</span><br><span class="line">        self.global_step += <span class="number">1</span></span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">            data = data.<span class="built_in">float</span>().cuda(self.output_device)</span><br><span class="line">            label = label.long().cuda(self.output_device)</span><br><span class="line">        timer[<span class="string">&#x27;dataloader&#x27;</span>] += self.split_time()</span><br><span class="line">        output = self.model(data)</span><br><span class="line">        loss = self.loss(output, label)</span><br><span class="line">        self.optimizer.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        self.optimizer.step()</span><br><span class="line">        loss_value.append(loss.data.item())</span><br><span class="line">        timer[<span class="string">&#x27;model&#x27;</span>] += self.split_time()</span><br><span class="line">        acc=self.get_acc(output,label)</span><br><span class="line">        acc_value.append(acc.data.item())</span><br><span class="line">        self.train_writer.add_scalar(<span class="string">&#x27;acc&#x27;</span>, acc, self.global_step)</span><br><span class="line">        self.train_writer.add_scalar(<span class="string">&#x27;loss&#x27;</span>, loss.data.item(), self.global_step)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># statistics</span></span><br><span class="line">        self.lr = self.optimizer.param_groups[<span class="number">0</span>][<span class="string">&#x27;lr&#x27;</span>]</span><br><span class="line">        self.train_writer.add_scalar(<span class="string">&#x27;lr&#x27;</span>, self.lr, self.global_step)</span><br><span class="line">        timer[<span class="string">&#x27;statistics&#x27;</span>] += self.split_time()</span><br><span class="line"></span><br><span class="line">    proportion = &#123;</span><br><span class="line">        k: <span class="string">&#x27;&#123;:02d&#125;%&#x27;</span>.<span class="built_in">format</span>(<span class="built_in">int</span>(<span class="built_in">round</span>(v * <span class="number">100</span> / <span class="built_in">sum</span>(timer.values()))))</span><br><span class="line">        <span class="keyword">for</span> k, v <span class="keyword">in</span> timer.items()</span><br><span class="line">    &#125;</span><br><span class="line">    self.print_log(</span><br><span class="line">        <span class="string">&#x27;\tMean training loss: &#123;:.4f&#125;.  Mean training acc: &#123;:.2f&#125;%.&#x27;</span>.<span class="built_in">format</span>(np.mean(loss_value), np.mean(acc_value)*<span class="number">100</span>))</span><br><span class="line">    self.print_log(<span class="string">&#x27;\tTime consumption: [Data]&#123;dataloader&#125;, [Network]&#123;model&#125;&#x27;</span>.<span class="built_in">format</span>(**proportion))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> save_model:</span><br><span class="line">        state_dict = self.model.state_dict()</span><br><span class="line">        weights = OrderedDict([[k.split(<span class="string">&#x27;module.&#x27;</span>)[-<span class="number">1</span>], v.cpu()] <span class="keyword">for</span> k, v <span class="keyword">in</span> state_dict.items()])</span><br><span class="line">        torch.save(weights, self.arg.model_saved_name + <span class="string">&#x27;-&#x27;</span> + <span class="built_in">str</span>(epoch+<span class="number">1</span>) + <span class="string">&#x27;-&#x27;</span> + <span class="built_in">str</span>(<span class="built_in">int</span>(self.global_step)) + <span class="string">&#x27;.pt&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">eval</span>(<span class="params">self, epoch, save_score=<span class="literal">False</span>, loader_name=[<span class="string">&#x27;test&#x27;</span>], wrong_file=<span class="literal">None</span>, result_file=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">if</span> wrong_file <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        f_w = <span class="built_in">open</span>(wrong_file, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> result_file <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        f_r = <span class="built_in">open</span>(result_file, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">    self.model.<span class="built_in">eval</span>()</span><br><span class="line">    self.print_log(<span class="string">&#x27;Eval epoch: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(epoch + <span class="number">1</span>))</span><br><span class="line">    <span class="keyword">for</span> ln <span class="keyword">in</span> loader_name:</span><br><span class="line">        loss_value = []</span><br><span class="line">        score_frag = []</span><br><span class="line">        label_list = []</span><br><span class="line">        pred_list = []</span><br><span class="line">        acc_value=[]</span><br><span class="line">        step = <span class="number">0</span></span><br><span class="line">        process = tqdm(self.data_loader[ln], ncols=<span class="number">40</span>)</span><br><span class="line">        <span class="keyword">for</span> batch_idx, (data, label, index) <span class="keyword">in</span> <span class="built_in">enumerate</span>(process):</span><br><span class="line">            label_list.append(label)</span><br><span class="line">            <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">                data = data.<span class="built_in">float</span>().cuda(self.output_device)</span><br><span class="line">                label = label.long().cuda(self.output_device)</span><br><span class="line">                output = self.model(data)</span><br><span class="line">                score_frag.append(output.data.cpu().numpy())</span><br><span class="line">                loss = self.loss(output, label)</span><br><span class="line">                acc = self.get_acc(output, label)</span><br><span class="line">                acc_value.append(acc.data.item())</span><br><span class="line">                loss_value.append(loss.data.item())</span><br><span class="line">                step += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        loss = np.mean(loss_value)</span><br><span class="line">        accuracy=np.mean(acc_value)</span><br><span class="line">        <span class="keyword">if</span> accuracy &gt; self.best_acc:</span><br><span class="line">            self.best_acc = accuracy</span><br><span class="line">            self.best_acc_epoch = epoch + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Accuracy: &#x27;</span>, accuracy, <span class="string">&#x27; model: &#x27;</span>, self.arg.model_saved_name)</span><br><span class="line">        <span class="keyword">if</span> self.arg.phase == <span class="string">&#x27;train&#x27;</span>:</span><br><span class="line">            self.val_writer.add_scalar(<span class="string">&#x27;loss&#x27;</span>, loss, self.global_step)</span><br><span class="line">            self.val_writer.add_scalar(<span class="string">&#x27;acc&#x27;</span>, accuracy, self.global_step)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># if save_score:</span></span><br><span class="line">        <span class="comment">#     score_pth=np.concatenate(score_frag,axis=0)</span></span><br><span class="line">        <span class="comment">#     print(score_pth.shape)</span></span><br><span class="line">        <span class="comment">#     torch.save(score_pth, &#x27;test.pth&#x27;)</span></span><br><span class="line">        self.print_log(<span class="string">&#x27;\tMean &#123;&#125; loss of &#123;&#125; batches: &#123;&#125;.&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">            ln, <span class="built_in">len</span>(self.data_loader[ln]), np.mean(loss_value)))</span><br></pre></td></tr></table></figure>
+<h3 id="邮件发送函数"><a href="#邮件发送函数" class="headerlink" title="邮件发送函数"></a>邮件发送函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">send</span>(<span class="params">text</span>):</span><br><span class="line">    <span class="keyword">import</span> smtplib</span><br><span class="line">    <span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line">    <span class="comment"># 设置服务器所需信息</span></span><br><span class="line">    <span class="comment"># 邮箱服务器地址</span></span><br><span class="line">    mail_host = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="comment"># 用户名</span></span><br><span class="line">    mail_user = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="comment"># 密码(部分邮箱为授权码)</span></span><br><span class="line">    mail_pass = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="comment"># 邮件发送方邮箱地址</span></span><br><span class="line">    sender = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="comment"># 邮件接受方邮箱地址，注意需要[]包裹，这意味着你可以写多个邮件地址群发</span></span><br><span class="line">    receivers = [<span class="string">&#x27;&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置email信息</span></span><br><span class="line">    <span class="comment"># 邮件内容设置</span></span><br><span class="line">    message = MIMEText(text, <span class="string">&#x27;plain&#x27;</span>, <span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    <span class="comment"># 邮件主题</span></span><br><span class="line">    message[<span class="string">&#x27;Subject&#x27;</span>] = <span class="string">&#x27;title&#x27;</span></span><br><span class="line">    <span class="comment"># 发送方信息</span></span><br><span class="line">    message[<span class="string">&#x27;From&#x27;</span>] = sender</span><br><span class="line">    <span class="comment"># 接受方信息</span></span><br><span class="line">    message[<span class="string">&#x27;To&#x27;</span>] = receivers[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 登录并发送邮件</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        smtpObj = smtplib.SMTP()</span><br><span class="line">        <span class="comment"># 连接到服务器</span></span><br><span class="line">        smtpObj.connect(mail_host, <span class="number">25</span>)</span><br><span class="line">        <span class="comment"># 登录到服务器</span></span><br><span class="line">        smtpObj.login(mail_user, mail_pass)</span><br><span class="line">        <span class="comment"># 发送</span></span><br><span class="line">        smtpObj.sendmail(</span><br><span class="line">            sender, receivers, message.as_string())</span><br><span class="line">        <span class="comment"># 退出</span></span><br><span class="line">        smtpObj.quit()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">    <span class="keyword">except</span> smtplib.SMTPException <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;error&#x27;</span>, e)  <span class="comment"># 打印错误</span></span><br></pre></td></tr></table></figure>
+<h3 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    parser = get_parser()</span><br><span class="line">    <span class="comment"># load arg form config file</span></span><br><span class="line">    p = parser.parse_args()</span><br><span class="line">    <span class="keyword">if</span> p.config <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(p.config, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            default_arg = yaml.safe_load(f)</span><br><span class="line">        key = <span class="built_in">vars</span>(p).keys()</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> default_arg.keys():</span><br><span class="line">            <span class="keyword">if</span> k <span class="keyword">not</span> <span class="keyword">in</span> key:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;WRONG ARG: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(k))</span><br><span class="line">                <span class="keyword">assert</span> (k <span class="keyword">in</span> key)</span><br><span class="line">        parser.set_defaults(**default_arg)</span><br><span class="line"></span><br><span class="line">    arg = parser.parse_args()</span><br><span class="line">    init_seed(arg.seed)</span><br><span class="line">    processor = Processor(arg)</span><br><span class="line">    processor.start()</span><br></pre></td></tr></table></figure>
+<h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>用mnist数据集举例，一定要做的是<strong>len</strong>函数的重写和让<strong>getitem</strong>方法返回data,label,idx三个数据（对应main.py中的 <code>for batch_idx, (data, label, index) in enumerate(process):</code>）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Feeder</span>(<span class="title class_ inherited__">Dataset</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,debug=<span class="literal">False</span>, state=<span class="number">0</span></span>):</span><br><span class="line">        self.debug=debug</span><br><span class="line">        self.dataDownload()</span><br><span class="line">        self.state=state</span><br><span class="line">        self.load()</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">dataDownload</span>(<span class="params">self</span>):</span><br><span class="line">        trans = transforms.ToTensor()</span><br><span class="line">        self.mnist_train = torchvision.datasets.FashionMNIST(</span><br><span class="line">            root=<span class="string">&quot;../data&quot;</span>, train=<span class="literal">True</span>, transform=trans, download=<span class="literal">True</span>)</span><br><span class="line">        self.mnist_test = torchvision.datasets.FashionMNIST(</span><br><span class="line">            root=<span class="string">&quot;../data&quot;</span>, train=<span class="literal">False</span>, transform=trans, download=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">load</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> self.state == <span class="number">0</span>:</span><br><span class="line">            self.data = self.mnist_train</span><br><span class="line">        <span class="keyword">elif</span> self.state == <span class="number">1</span>:</span><br><span class="line">            self.data = self.mnist_test</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;error state&quot;</span>)</span><br><span class="line">            exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, idx</span>):</span><br><span class="line">        data_numpy,label=self.data[idx]</span><br><span class="line">        data_numpy=np.array(data_numpy)</span><br><span class="line">        <span class="keyword">return</span> data_numpy.astype(np.float32),label,idx</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">import_class</span>(<span class="params">name</span>):</span><br><span class="line">    components = name.split(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">    mod = <span class="built_in">__import__</span>(components[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">for</span> comp <span class="keyword">in</span> components[<span class="number">1</span>:]:</span><br><span class="line">        mod = <span class="built_in">getattr</span>(mod, comp)</span><br><span class="line">    <span class="keyword">return</span> mod</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    a=Feeder()</span><br></pre></td></tr></table></figure>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>下面提供一个配置文件示例<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">work_dir:</span> <span class="string">./work_dir/mnist</span></span><br><span class="line"><span class="comment">#weights: ./work_dir/skating/CW/runs-219-4380.pt</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># feeder</span></span><br><span class="line"><span class="attr">feeder:</span> <span class="string">feeder.mnist.Feeder</span></span><br><span class="line"><span class="attr">train_feeder_args:</span></span><br><span class="line">  <span class="attr">debug:</span> <span class="literal">False</span></span><br><span class="line">  <span class="attr">state:</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test_feeder_args:</span></span><br><span class="line">  <span class="attr">debug:</span> <span class="literal">False</span></span><br><span class="line">  <span class="attr">state:</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># model</span></span><br><span class="line"><span class="attr">model:</span> <span class="string">model.net.LeNet</span></span><br><span class="line"><span class="attr">model_args:</span></span><br><span class="line">  <span class="attr">kernel_size:</span> <span class="number">5</span></span><br><span class="line">  <span class="attr">padding:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">stride:</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#training</span></span><br><span class="line"><span class="attr">device:</span> [<span class="number">0</span>]</span><br><span class="line"><span class="attr">batch_size:</span> <span class="number">16</span></span><br><span class="line"><span class="attr">test_batch_size:</span> <span class="number">16</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#optim</span></span><br><span class="line"><span class="attr">base_lr:</span> <span class="number">0.1</span></span><br><span class="line"><span class="attr">step:</span> [<span class="number">150</span>, <span class="number">225</span>]</span><br><span class="line"><span class="attr">num_epoch:</span> <span class="number">20</span></span><br><span class="line"><span class="attr">lr_decay_rate:</span> <span class="number">0.1</span></span><br><span class="line"><span class="attr">warm_up_epoch:</span> <span class="number">5</span></span><br><span class="line"><span class="attr">save_epoch:</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="attr">seed:</span> <span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="开始食用"><a href="#开始食用" class="headerlink" title="开始食用"></a>开始食用</h2><p>运行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python main.py --config config/config.yaml --device 0</span><br></pre></td></tr></table></figure><br>启动tensorboard<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir=work_dir/mnist/runs --bind_all</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/09/15/quicksort/" rel="next" title="关于快速排序的一些优化方法">
+                <i class="fa fa-chevron-left"></i> 关于快速排序的一些优化方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">代码结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E5%89%8D%E5%87%86%E5%A4%87"><span class="nav-number">3.</span> <span class="nav-text">训练前准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%BF%85%E8%A6%81%E7%9A%84%E5%8C%85"><span class="nav-number">3.1.</span> <span class="nav-text">导入必要的包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">设置资源管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%88%9D%E5%A7%8B%E5%8C%96%E7%A7%8D%E5%AD%90"><span class="nav-number">3.3.</span> <span class="nav-text">设置初始化种子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%AF%BC%E5%85%A5%E7%B1%BB%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">3.4.</span> <span class="nav-text">设置导入类的函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string%E8%BD%ACbool%E5%87%BD%E6%95%B0"><span class="nav-number">3.5.</span> <span class="nav-text">string转bool函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0"><span class="nav-number">3.6.</span> <span class="nav-text">读取默认参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E4%BB%A3%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">训练代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">4.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">4.2.</span> <span class="nav-text">读取数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.3.</span> <span class="nav-text">读取模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96%E5%99%A8"><span class="nav-number">4.4.</span> <span class="nav-text">配置优化器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%8F%82%E6%95%B0"><span class="nav-number">4.5.</span> <span class="nav-text">保存参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%AE%BE%E5%AE%9A"><span class="nav-number">4.6.</span> <span class="nav-text">学习率设定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%8D%B0%E6%97%B6%E9%97%B4"><span class="nav-number">4.7.</span> <span class="nav-text">打印时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#print%E5%90%8C%E6%97%B6%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6"><span class="nav-number">4.8.</span> <span class="nav-text">print同时写入文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E6%97%B6%E9%97%B4"><span class="nav-number">4.9.</span> <span class="nav-text">记录时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%88%86%E6%AE%B5%E6%97%B6%E9%97%B4"><span class="nav-number">4.10.</span> <span class="nav-text">计算分段时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">4.11.</span> <span class="nav-text">设置损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%87%86%E7%A1%AE%E7%8E%87"><span class="nav-number">4.12.</span> <span class="nav-text">计算准确率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E8%AE%AD%E7%BB%83"><span class="nav-number">4.13.</span> <span class="nav-text">启动训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81%E5%87%BD%E6%95%B0"><span class="nav-number">4.14.</span> <span class="nav-text">邮件发送函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E5%87%BD%E6%95%B0"><span class="nav-number">4.15.</span> <span class="nav-text">主函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">数据预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E9%A3%9F%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">开始食用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yuning Ding</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">10.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'rwQHEgGTvfAanLUoQeIsIbRc-MdYXbMMI',
+        appKey: 'i5pdHyzpSMXEYv1HVk5uucUA',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "default";
+      
+          flOptions.boxForm = "vertical";
+      
+          flOptions.position = "topRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
