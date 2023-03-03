@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>kaggle动作检测挑战铜牌：nfl player contact detection 2023</title>
+    <url>/2023/03/03/kaggle-nfl-player-contact-detection/</url>
+    <content><![CDATA[<blockquote>
+<p>The solution of the 87th, bronze medal, top 10%.</p>
+</blockquote>
+<p>代码链接：<a href="https://github.com/dingyn-Reno/kaggle_nfl_player_contact_detection">https://github.com/dingyn-Reno/kaggle_nfl_player_contact_detection</a></p>
+<p>数据链接：<a href="https://www.kaggle.com/datasets/dyn201885095/testdata/download?datasetVersionNumber=24">https://www.kaggle.com/datasets/dyn201885095/testdata/download?datasetVersionNumber=24</a></p>
+<p>提交代码：<a href="https://www.kaggle.com/code/yefawu/nfl-3in1?scriptVersionId=120272348">https://www.kaggle.com/code/yefawu/nfl-3in1?scriptVersionId=120272348</a></p>
+<p>英文页面：<a href="https://github.com/dingyn-Reno/kaggle_nfl_player_contact_detection">https://github.com/dingyn-Reno/kaggle_nfl_player_contact_detection</a></p>
+<h2 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python main.py --config config/config_for_train.yaml --device 0</span><br><span class="line">python main.py --config config/config.yaml --device 0</span><br></pre></td></tr></table></figure>
+<h2 id="启动tensorboard"><a href="#启动tensorboard" class="headerlink" title="启动tensorboard"></a>启动tensorboard</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> NFL</span><br><span class="line">tensorboard --logdir=work_dir/nfl5/runs --bind_all</span><br></pre></td></tr></table></figure>
+<h2 id="训练和测试"><a href="#训练和测试" class="headerlink" title="训练和测试"></a>训练和测试</h2><p>test:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python main.py --config config/config.yaml --phase <span class="built_in">test</span> --save-score True --device 0 --weights ?</span><br></pre></td></tr></table></figure><br>train:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python main.py --config ? --device </span><br></pre></td></tr></table></figure></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="第一步：特征工程"><a href="#第一步：特征工程" class="headerlink" title="第一步：特征工程"></a>第一步：特征工程</h3><ul>
+<li>将测试的label根据提交样例的列表扩充到训练label的维度。</li>
+<li>根据头盔传感器的数据，截取部分帧</li>
+<li>处理表格数据</li>
+<li>根据图像的定位坐标框截取图像</li>
+<li>对图像进行特征增强处理</li>
+</ul>
+<h3 id="第二步：模型选择"><a href="#第二步：模型选择" class="headerlink" title="第二步：模型选择"></a>第二步：模型选择</h3><p>我们使用了0.5<em>resnet50+0.5</em>mobilenet_v3的模型融合方案(0.701)以及0.4<em>resnet50+0.4</em>mobilenet_v3+0.2*resnext的模型融合方案(0.701)。</p>
+<p>以下模型我们进行了测试但最终没有选用：swin transformer,vit,regnety,efficientnet_b4,hrnet</p>
+<p>以下模型被其他队伍使用但我们没有用：resnet3D，xgboost，efficientnet_v2</p>
+<h3 id="第三步：TTA"><a href="#第三步：TTA" class="headerlink" title="第三步：TTA"></a>第三步：TTA</h3><p>我们使用了中值模糊和水平翻转两种TTA策略。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>作为我们的第一次kaggle比赛，拿到铜牌很值得鼓励，但是这次比赛对很多技巧和方法还不熟悉，比如一些trick的使用上，预训练参数的使用上，以及一些调优策略等。</p>
+]]></content>
+      <categories>
+        <category>kaggle</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深度学习调优策略</title>
     <url>/2023/02/01/train/</url>
     <content><![CDATA[<blockquote>
