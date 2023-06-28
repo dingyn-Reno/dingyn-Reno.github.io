@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python," />
 
 
 
@@ -79,14 +79,17 @@
 
 
 
+<meta name="description" content="本文介绍了一个tensorrt的profilling工具，用于测试推理模型的性能。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tensort_trtexec">
+<meta property="og:title" content="TensorRT的细粒度profilling--trtexec">
 <meta property="og:url" content="http://example.com/2023/06/24/tensort-trtexec/index.html">
 <meta property="og:site_name" content="Reno&#39;s Notebook">
+<meta property="og:description" content="本文介绍了一个tensorrt的profilling工具，用于测试推理模型的性能。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-23T16:25:47.000Z">
-<meta property="article:modified_time" content="2023-06-23T16:25:47.383Z">
+<meta property="article:modified_time" content="2023-06-28T01:06:41.212Z">
 <meta property="article:author" content="Yuning Ding">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 
 
@@ -122,7 +125,7 @@
 
 
 
-  <title>tensort_trtexec | Reno's Notebook</title>
+  <title>TensorRT的细粒度profilling--trtexec | Reno's Notebook</title>
   
 
 
@@ -319,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">tensort_trtexec</h1>
+          <h1 class="post-title" itemprop="name headline">TensorRT的细粒度profilling--trtexec</h1>
         
 
         <div class="post-meta">
@@ -341,6 +344,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E4%BC%98%E5%8C%96/" itemprop="url" rel="index">
+                    <span itemprop="name">模型部署优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -378,7 +403,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  0
+                  1.7k
                 </span>
               
 
@@ -394,12 +419,16 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  1
+                  6
                 </span>
               
             </div>
           
 
+          
+              <div class="post-description">
+                  本文介绍了一个tensorrt的profilling工具，用于测试推理模型的性能。
+              </div>
           
 
         </div>
@@ -415,7 +444,80 @@
       
 
       
-        
+        <h2 id="trtexec"><a href="#trtexec" class="headerlink" title="trtexec"></a>trtexec</h2><p>TensorRT中的<code>trtexec</code>可以用来评测我们的网络模型，具体来说它有以下两个功能：</p>
+<p> 被用来对指定网络模型产生序列化引擎。</p>
+<p>示例命令：<code>trtexec --deploy=/path/to/mnist.prototxt --model=/path/to/mnist.caffemodel --output=prob --batch=16 --saveEngine=mnist16.trt</code> (linux)</p>
+<p>被用来在指定的网络模型中，对随机输入数据进行基准测试。</p>
+<p>示例命令：<code>trtexec --loadEngine=mnist16.trt --batch=16</code></p>
+<p>如果你想测试 FP16 的性能，你可以通过新增一个参数<code>--fp16</code>来实现，但并不是所有的 NVIDIA GPU 系列都支持 FP16 或者说 FP16 模式都有加速效果，</p>
+<p>我们对我们在上文编译的CTR-GCN模型进行profilling。</p>
+<p>编译<code>samples/trtexec/</code></p>
+<p>执行命令<code>./trtexec --onnx=model.onnx --shapes=input:1x3x64x17x1</code></p>
+<h3 id="work-with-chatgpt"><a href="#work-with-chatgpt" class="headerlink" title="work with chatgpt"></a>work with chatgpt</h3><p>我们遇到了很多bug，在这个过程中和chatgpt进行了多次沟通</p>
+<h3 id="Q-tensorrt的工具trtexec怎么用"><a href="#Q-tensorrt的工具trtexec怎么用" class="headerlink" title="Q: tensorrt的工具trtexec怎么用"></a>Q: tensorrt的工具trtexec怎么用</h3><p>A: TensorRT的工具<code>trtexec</code>是一个用于执行和测试TensorRT模型的命令行实用程序。它提供了一些选项，用于配置和运行TensorRT引擎。</p>
+<p>以下是<code>trtexec</code>的一般用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trtexec [选项] &lt;模型文件&gt;</span><br></pre></td></tr></table></figure>
+<p>其中，<code>&lt;模型文件&gt;</code>是您要使用TensorRT运行的模型文件路径。下面是一些常用的选项：</p>
+<ul>
+<li><code>-d</code> 或 <code>--deploy</code>：指定Caffe或ONNX模型的deploy文件路径。</li>
+<li><code>-s</code> 或 <code>--scales</code>：指定输入张量的缩放因子。例如：<code>--scales=1.0,1.0,1.0</code>。</li>
+<li><code>-e</code> 或 <code>--explicitBatch</code>：将批次大小设置为显式值。例如：<code>--explicitBatch=1</code>。</li>
+<li><code>-t</code> 或 <code>--timing</code>：启用TensorRT引擎的时间测量。</li>
+<li><code>-v</code> 或 <code>--verbose</code>：启用详细的日志输出。</li>
+</ul>
+<p>此外，还可以使用其他选项来配置TensorRT引擎和运行时设置。您可以使用<code>trtexec --help</code>命令查看完整的选项列表和说明。</p>
+<p>以下是一个示例使用<code>trtexec</code>运行TensorRT模型的命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trtexec --deploy=deploy.prototxt --explicitBatch=1 --scales=1.0,1.0,1.0 model.trt</span><br></pre></td></tr></table></figure>
+<p>该命令使用Caffe的deploy文件(<code>deploy.prototxt</code>)和TensorRT模型文件(<code>model.trt</code>)来运行TensorRT引擎。它设置了批次大小为1，并使用缩放因子1.0来处理输入张量。</p>
+<p>请注意，<code>trtexec</code>工具需要正确配置的TensorRT库和CUDA环境。在运行之前，请确保您已经正确安装和设置了相关的依赖项。</p>
+<p>希望这可以帮助您开始使用<code>trtexec</code>工具来执行和测试TensorRT模型。如有需要，请参考TensorRT文档获取更多详细信息和示例。</p>
+<h3 id="Q：我如何使用trtexec来生成onnx模型的序列化引擎"><a href="#Q：我如何使用trtexec来生成onnx模型的序列化引擎" class="headerlink" title="Q：我如何使用trtexec来生成onnx模型的序列化引擎"></a>Q：我如何使用trtexec来生成onnx模型的序列化引擎</h3><p>A：要使用<code>trtexec</code>工具生成TensorRT的序列化引擎（Serialized Engine）文件，您需要提供一个Caffe或ONNX模型的deploy文件，并使用<code>--onnx</code>选项指定输出的引擎文件名。</p>
+<p>以下是使用<code>trtexec</code>生成序列化引擎的示例命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trtexec --onnx=&lt;输出引擎文件名&gt; --deploy=&lt;Caffe或ONNX模型的deploy文件&gt; [其他选项]</span><br></pre></td></tr></table></figure>
+<p>请确保将<code>&lt;输出引擎文件名&gt;</code>替换为您希望生成的TensorRT引擎文件的路径和文件名。<code>&lt;Caffe或ONNX模型的deploy文件&gt;</code>应该是您要使用的模型的deploy文件路径。</p>
+<p>此外，您可以根据需要添加其他选项来配置TensorRT引擎和运行时设置。例如，您可以使用<code>--explicitBatch</code>选项设置批次大小，使用<code>--scales</code>选项设置输入张量的缩放因子等。</p>
+<p>以下是一个示例命令，展示如何使用<code>trtexec</code>生成ONNX模型的序列化引擎：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trtexec --onnx=model.engine --deploy=model.prototxt</span><br></pre></td></tr></table></figure>
+<p>该命令将使用名为<code>model.prototxt</code>的Caffe或ONNX模型的deploy文件，并将生成的TensorRT引擎保存为<code>model.engine</code>文件。</p>
+<p>请确保在运行命令之前已正确配置TensorRT库和CUDA环境，并且相关的依赖项已正确安装和设置。</p>
+<p>希望这可以帮助您使用<code>trtexec</code>工具生成ONNX模型的序列化引擎。如有需要，请参考TensorRT文档获取更多详细信息和示例。</p>
+<h3 id="Q-onnx如何生成deploy文件"><a href="#Q-onnx如何生成deploy文件" class="headerlink" title="Q: onnx如何生成deploy文件"></a>Q: onnx如何生成deploy文件</h3><p>A：在TensorRT中，<code>deploy</code>文件通常与Caffe模型相关联，而不是与ONNX模型关联。<code>deploy</code>文件是Caffe框架中的一种描述网络结构的文件，其中包含了网络的层次结构、参数等信息。因此，您无法直接从ONNX模型生成<code>deploy</code>文件。</p>
+<p>如果您有一个ONNX模型，并且希望在TensorRT中使用，可以通过以下步骤将ONNX模型转换为TensorRT可用的格式：</p>
+<ol>
+<li>使用TensorRT的Python API加载ONNX模型。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorrt <span class="keyword">as</span> trt</span><br><span class="line"></span><br><span class="line">TRT_LOGGER = trt.Logger(trt.Logger.WARNING)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">build_engine</span>(<span class="params">onnx_file_path</span>):</span><br><span class="line">    builder = trt.Builder(TRT_LOGGER)</span><br><span class="line">    network = builder.create_network()</span><br><span class="line">    parser = trt.OnnxParser(network, TRT_LOGGER)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(onnx_file_path, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> model:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> parser.parse(model.read()):</span><br><span class="line">            <span class="keyword">for</span> error <span class="keyword">in</span> <span class="built_in">range</span>(parser.num_errors):</span><br><span class="line">                <span class="built_in">print</span>(parser.get_error(error))</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    builder.max_batch_size = <span class="number">1</span></span><br><span class="line">    builder.max_workspace_size = <span class="number">1</span> &lt;&lt; <span class="number">30</span>  <span class="comment"># 设置适当的workspace大小</span></span><br><span class="line">    engine = builder.build_cuda_engine(network)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> engine</span><br></pre></td></tr></table></figure>
+<ol>
+<li>将加载的ONNX模型转换为TensorRT引擎。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">onnx_file_path = <span class="string">&#x27;model.onnx&#x27;</span></span><br><span class="line">engine = build_engine(onnx_file_path)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> engine <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    trt_engine_path = <span class="string">&#x27;model.trt&#x27;</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(trt_engine_path, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(engine.serialize())</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;TensorRT engine saved at:&quot;</span>, trt_engine_path)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Failed to build TensorRT engine.&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>上述代码片段中的<code>build_engine</code>函数将ONNX模型解析为TensorRT的网络表示，并使用TensorRT的Builder构建引擎。最后，引擎通过<code>serialize</code>方法序列化为文件，并保存为<code>.trt</code>文件。</p>
+<p>使用上述代码，您可以将ONNX模型转换为TensorRT的序列化引擎文件，而无需使用<code>deploy</code>文件。</p>
+<h3 id="Q：我应该如何使用tensorrt的trtexec测试onnx模型文件"><a href="#Q：我应该如何使用tensorrt的trtexec测试onnx模型文件" class="headerlink" title="Q：我应该如何使用tensorrt的trtexec测试onnx模型文件"></a>Q：我应该如何使用tensorrt的trtexec测试onnx模型文件</h3><p>A：要使用TensorRT的<code>trtexec</code>工具测试ONNX模型文件，您需要遵循以下步骤：</p>
+<ol>
+<li><p>下载并安装TensorRT。确保您已正确安装并配置了TensorRT库和CUDA环境。</p>
+</li>
+<li><p>在命令行中使用<code>trtexec</code>命令来执行ONNX模型。命令的基本格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trtexec --onnx=&lt;模型文件&gt; [其他选项]</span><br></pre></td></tr></table></figure>
+<p>其中，<code>&lt;模型文件&gt;</code>是您要测试的ONNX模型文件路径。您可以根据需要添加其他选项来配置TensorRT引擎和运行时设置。</p>
+<p>以下是一些常用的选项：</p>
+<ul>
+<li><code>-s</code> 或 <code>--shapes</code>：指定输入张量的形状。例如：<code>--shapes=input:1x3x224x224</code>。</li>
+<li><code>-e</code> 或 <code>--explicitBatch</code>：将批次大小设置为显式值。例如：<code>--explicitBatch=1</code>。</li>
+<li><code>-t</code> 或 <code>--timing</code>：启用TensorRT引擎的时间测量。</li>
+<li><code>-v</code> 或 <code>--verbose</code>：启用详细的日志输出。</li>
+</ul>
+<p>请使用<code>trtexec --help</code>命令查看完整的选项列表和说明。</p>
+</li>
+<li><p>运行<code>trtexec</code>命令来测试ONNX模型。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trtexec --onnx=model.onnx --shapes=input:1x3x224x224</span><br></pre></td></tr></table></figure>
+<p>这个命令会使用名为<code>model.onnx</code>的ONNX模型文件来运行TensorRT引擎。它还指定了输入张量的形状为<code>1x3x224x224</code>。</p>
+<p><code>trtexec</code>将加载模型并执行推理，然后显示一些有关推理性能的信息，例如每个层的执行时间和推理总时间。</p>
+</li>
+</ol>
+<p>请注意，<code>trtexec</code>工具需要正确配置的TensorRT库和CUDA环境。在运行之前，请确保您已经正确安装和设置了相关的依赖项。</p>
+<p>希望这可以帮助您使用<code>trtexec</code>工具测试ONNX模型文件。如有需要，请参考TensorRT文档获取更多详细信息和示例。</p>
+
       
     </div>
     
@@ -429,6 +531,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
       
 
       
@@ -463,6 +571,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/06/28/MDRGCN/" rel="prev" title="动作识别新模型--多维度细化图卷积网络源码和论文现已发布在github。">
+                动作识别新模型--多维度细化图卷积网络源码和论文现已发布在github。 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -517,8 +629,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -533,7 +654,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -544,7 +665,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -579,6 +700,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#trtexec"><span class="nav-number">1.</span> <span class="nav-text">trtexec</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#work-with-chatgpt"><span class="nav-number">1.1.</span> <span class="nav-text">work with chatgpt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-tensorrt%E7%9A%84%E5%B7%A5%E5%85%B7trtexec%E6%80%8E%E4%B9%88%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">Q: tensorrt的工具trtexec怎么用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q%EF%BC%9A%E6%88%91%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8trtexec%E6%9D%A5%E7%94%9F%E6%88%90onnx%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%BC%95%E6%93%8E"><span class="nav-number">1.3.</span> <span class="nav-text">Q：我如何使用trtexec来生成onnx模型的序列化引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-onnx%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90deploy%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">Q: onnx如何生成deploy文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q%EF%BC%9A%E6%88%91%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8tensorrt%E7%9A%84trtexec%E6%B5%8B%E8%AF%95onnx%E6%A8%A1%E5%9E%8B%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.</span> <span class="nav-text">Q：我应该如何使用tensorrt的trtexec测试onnx模型文件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -606,7 +743,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">15.8k</span>
+    <span title="Site words total count">18k</span>
   
 </div>
 
