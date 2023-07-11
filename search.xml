@@ -1,15 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>动作识别新模型--多维度细化图卷积网络源码和论文现已发布在github。</title>
+    <title>tensorint8</title>
+    <url>/2023/07/11/tensorint8/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>MySql的高级查询指令示例</title>
+    <url>/2023/06/29/MySqlSelect/</url>
+    <content><![CDATA[<p>MySQL提供了一系列高级查询指令，用于执行复杂的数据库查询操作。下面介绍几个常用的高级查询指令及其用法：</p>
+<ol>
+<li><p>JOIN：用于将两个或多个表基于某种关联条件进行连接。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> t1.column1, t2.column2</span><br><span class="line"><span class="keyword">FROM</span> table1 <span class="keyword">AS</span> t1</span><br><span class="line"><span class="keyword">JOIN</span> table2 <span class="keyword">AS</span> t2 <span class="keyword">ON</span> t1.id <span class="operator">=</span> t2.id;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>UNION：用于将多个SELECT语句的结果合并为一个结果集。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1 <span class="keyword">FROM</span> table1</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> column1 <span class="keyword">FROM</span> table2;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DISTINCT：用于去除查询结果中的重复行。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> column1, column2 <span class="keyword">FROM</span> <span class="keyword">table</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>GROUP BY：用于根据指定的列对结果进行分组，并可以结合聚合函数使用。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, <span class="built_in">COUNT</span>(column2)</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>HAVING：用于在GROUP BY语句中对分组结果进行过滤。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, <span class="built_in">COUNT</span>(column2)</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column1</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">COUNT</span>(column2) <span class="operator">&gt;</span> <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ORDER BY：用于对查询结果进行排序，默认为升序。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, column2</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> column1 <span class="keyword">ASC</span>, column2 <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>LIMIT：用于限制查询结果的返回数量。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, column2</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line">LIMIT <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>常用工具</category>
+      </categories>
+      <tags>
+        <tag>MySql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>适用动作识别和评估任务的数据集MMFS</title>
+    <url>/2023/06/28/MMFS/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>数据集</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>动作识别新模型--多维度细化图卷积网络</title>
     <url>/2023/06/28/MDRGCN/</url>
-    <content><![CDATA[<p>我们发布了文章：Multi-Dimensional Refinement Graph Convolutional Network with Robust Decouple Loss for Fine-Grained Skeleton-Based Action Recognition</p>
+    <content><![CDATA[<p>我们在arxiv上发布了文章：Multi-Dimensional Refinement Graph Convolutional Network with Robust Decouple Loss for Fine-Grained Skeleton-Based Action Recognition</p>
+<p>文章细节稍后更新。</p>
 <p>pdf链接：<a href="https://arxiv.org/abs/2306.15321">https://arxiv.org/abs/2306.15321</a></p>
 <p>代码链接：<a href="https://github.com/dingyn-Reno/MDR-GCN/blob/main/README.md">https://github.com/dingyn-Reno/MDR-GCN/blob/main/README.md</a></p>
 <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>Graph convolutional networks have been widely used in skeleton-based action recognition. However, existing approaches are limited in fine-grained action recognition due to the similarity of inter-class data. Moreover, the noisy data from pose extraction increases the challenge of fine-grained recognition. In this work, we propose a flexible attention block called Channel-Variable Spatial-Temporal Attention (CVSTA) to enhance the discriminative power of spatial-temporal joints and obtain a more compact intra-class feature distribution. Based on CVSTA, we construct a Multi-Dimensional Refinement Graph Convolutional Network (MDR-GCN), which can improve the discrimination among channel-, joint- and frame-level features for fine-grained actions. Furthermore, we propose a Robust Decouple Loss (RDL), which significantly boosts the effect of the CVSTA and reduces the impact of noise. The proposed method combining MDR-GCN with RDL outperforms the known state- of-the-art skeleton-based approaches on fine-grained datasets, FineGym99 and FSD-10, and also on the coarse dataset NTU- RGB+D X-view version.</p>
-<h2 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h2><h3 id="FineGym99"><a href="#FineGym99" class="headerlink" title="FineGym99"></a>FineGym99</h3><p>The data processing is borrowed from <a href="https://github.com/kennymckormick/pyskl">https://github.com/kennymckormick/pyskl</a></p>
+<h2 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h2><h3 id="FineGym99"><a href="#FineGym99" class="headerlink" title="FineGym99"></a>FineGym99</h3><p>The data processing is motivated by <a href="https://github.com/kennymckormick/pyskl">https://github.com/kennymckormick/pyskl</a></p>
 <h3 id="NTU-RGB-D"><a href="#NTU-RGB-D" class="headerlink" title="NTU RGB+D"></a>NTU RGB+D</h3><p>Request dataset: <a href="https://rose1.ntu.edu.sg/dataset/actionRecognition">https://rose1.ntu.edu.sg/dataset/actionRecognition</a></p>
-<p>The data processing is borrowed from CTR-GCN: <a href="https://github.com/Uason-Chen/CTR-GCN">https://github.com/Uason-Chen/CTR-GCN</a></p>
+<p>The data processing is motivated by CTR-GCN: <a href="https://github.com/Uason-Chen/CTR-GCN">https://github.com/Uason-Chen/CTR-GCN</a></p>
 <h3 id="FSD-10"><a href="#FSD-10" class="headerlink" title="FSD-10"></a>FSD-10</h3><p>Request dataset: <a href="https://shenglanliu.github.io/fsd10/">https://shenglanliu.github.io/fsd10/</a></p>
 <h2 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h2><p>For FineGym99,<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python main_cl_new.py --config config/gym/default2.yaml --device 0</span><br></pre></td></tr></table></figure></p>
 <p>For NTU RGB+D,<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python main_cl_new.py --config config/nturgbd-cross-subject/default.yaml --device 0</span><br></pre></td></tr></table></figure></p>
