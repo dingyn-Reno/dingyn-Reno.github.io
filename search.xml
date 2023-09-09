@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>DeepSpeed</title>
-    <url>/2023/09/07/DeepSpeed/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>DeepSpeed推理源码解读（一）代码基础结构分析</title>
     <url>/2023/09/07/scp/</url>
     <content><![CDATA[<p>DeepSpeed是一个由微软开发的开源深度学习优化库，旨在提高大规模模型训练的效率和可扩展性。它通过多种技术手段来加速训练和推理，包括模型并行化、梯度累积、动态精度缩放、本地模式混合精度等。DeepSpeed还提供了一些辅助工具，如分布式训练管理、内存优化和模型压缩等，以帮助开发者更好地管理和优化大规模深度学习训练任务。</p>
@@ -347,38 +342,6 @@
 ]]></content>
       <categories>
         <category>kaggle</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深度学习调优策略</title>
-    <url>/2023/02/01/train/</url>
-    <content><![CDATA[<blockquote>
-<p>文章参考google算法工程师团队的意见，得出深度学习工程的一些经验技巧。文章讨论了很多问题，我们在这里只讨论训练代码的一些基本思想。</p>
-</blockquote>
-<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>选择一个常用的模型开始工作，或者选择一个和目标任务相近的模型开始工作。</p>
-<p>对于模型的过拟合问题，可以立即增加正则化项进行下一次实验，不需调整优化器参数。</p>
-<h2 id="优化器"><a href="#优化器" class="headerlink" title="优化器"></a>优化器</h2><ul>
-<li>开始时使用更简单的优化器，例如SGD with fixed momentum 或者 Adam with fixed params。</li>
-<li>理论上，稀疏数据适合Adam系算法。</li>
-<li>待==模型参数==稳定后，进行更进一步的选择：</li>
-</ul>
-<p>for SGD，尝试SGD with Nesterov variant</p>
-<p>for Adam和NAdam：调优策略：先调学习率（10次实验左右），再调beta1，再调eps（10-25），最后调beta2（25+）</p>
-<img src="/2023/02/01/train/1.png" class="" title="学习率与loss的关系">
-<h2 id="batch-size"><a href="#batch-size" class="headerlink" title="batch size"></a>batch size</h2><p>优化器参数和正则化参数受batch影响较大，因此改变batch后，需要对其重新调优。</p>
-<p>训练时，给batch_size一个适当的值即可。</p>
-<h2 id="超参数"><a href="#超参数" class="headerlink" title="超参数"></a>超参数</h2><p>对于超参数，面向不同的工作目标，超参数可以分为科学参数，扰动参数和固定参数。</p>
-<p>比如，优化模型层数时，模型层数是科学参数，学习率是扰动参数，而在损失函数已经确定时，损失函数应该是固定参数。</p>
-<p>通常来说，优化器类别是科学参数，优化器参数是扰动参数</p>
-<p>正则化技术是否使用是科学参数，而正则化率是扰动参数，如dropout</p>
-<p>层数是科学超参数</p>
-<p>因此，一种可以考虑的思路是，首先，设定一个基础的batch size和学习器（默认参数SGD or Adam），确定模型的激活函数和损失函数。然后，调节神经网络层数，包括隐藏层数等，同时调节SGD或Adam参数。</p>
-]]></content>
-      <categories>
-        <category>深度学习</category>
       </categories>
       <tags>
         <tag>python</tag>
