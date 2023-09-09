@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>DeepSpeed推理源码解读（一）代码基础结构分析</title>
-    <url>/2023/09/07/scp/</url>
-    <content><![CDATA[<p>DeepSpeed是一个由微软开发的开源深度学习优化库，旨在提高大规模模型训练的效率和可扩展性。它通过多种技术手段来加速训练和推理，包括模型并行化、梯度累积、动态精度缩放、本地模式混合精度等。DeepSpeed还提供了一些辅助工具，如分布式训练管理、内存优化和模型压缩等，以帮助开发者更好地管理和优化大规模深度学习训练任务。</p>
-<p>对于模型的推理，DeepSpeed提供了一套和FasterTransformer类似的分布式模型推理优化方案。为了深入学习分布式模型推理优化技术，笔者特对DeepSpeed推理部分的代码进行解读。</p>
-<h2 id="推理模型初始化"><a href="#推理模型初始化" class="headerlink" title="推理模型初始化"></a>推理模型初始化</h2><h2 id="推理代码优化"><a href="#推理代码优化" class="headerlink" title="推理代码优化"></a>推理代码优化</h2>]]></content>
-      <categories>
-        <category>模型部署优化</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>tensorrt的int8量化示例</title>
     <url>/2023/07/11/tensorint8/</url>
     <content><![CDATA[<h2 id="int8量化原理"><a href="#int8量化原理" class="headerlink" title="int8量化原理"></a>int8量化原理</h2><p>TensorRT的INT8（8位整数）量化是一种优化推理过程的技术，它可以将深度学习模型的权重和激活值从浮点数表示转换为8位整数表示，从而减少模型的存储需求和计算量，提高推理性能。</p>
@@ -48,41 +35,6 @@
       </categories>
       <tags>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MySql的高级查询指令示例</title>
-    <url>/2023/06/29/MySqlSelect/</url>
-    <content><![CDATA[<p>MySQL提供了一系列高级查询指令，用于执行复杂的数据库查询操作。下面介绍几个常用的高级查询指令及其用法：</p>
-<ol>
-<li><p>JOIN：用于将两个或多个表基于某种关联条件进行连接。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> t1.column1, t2.column2</span><br><span class="line"><span class="keyword">FROM</span> table1 <span class="keyword">AS</span> t1</span><br><span class="line"><span class="keyword">JOIN</span> table2 <span class="keyword">AS</span> t2 <span class="keyword">ON</span> t1.id <span class="operator">=</span> t2.id;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>UNION：用于将多个SELECT语句的结果合并为一个结果集。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1 <span class="keyword">FROM</span> table1</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> column1 <span class="keyword">FROM</span> table2;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>DISTINCT：用于去除查询结果中的重复行。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> column1, column2 <span class="keyword">FROM</span> <span class="keyword">table</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>GROUP BY：用于根据指定的列对结果进行分组，并可以结合聚合函数使用。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, <span class="built_in">COUNT</span>(column2)</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column1;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>HAVING：用于在GROUP BY语句中对分组结果进行过滤。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, <span class="built_in">COUNT</span>(column2)</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column1</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">COUNT</span>(column2) <span class="operator">&gt;</span> <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ORDER BY：用于对查询结果进行排序，默认为升序。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, column2</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> column1 <span class="keyword">ASC</span>, column2 <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>LIMIT：用于限制查询结果的返回数量。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, column2</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line">LIMIT <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>常用工具</category>
-      </categories>
-      <tags>
-        <tag>MySql</tag>
       </tags>
   </entry>
   <entry>
@@ -456,27 +408,6 @@
       </tags>
   </entry>
   <entry>
-    <title>关于快速排序的一些优化方法</title>
-    <url>/2022/09/15/quicksort/</url>
-    <content><![CDATA[<h2 id="排序前的有序性检查"><a href="#排序前的有序性检查" class="headerlink" title="排序前的有序性检查"></a>排序前的有序性检查</h2><p>我们可以在快速排序算法的每个递归子数组排序前进行有序性检查，无序时才进行排序操作。</p>
-<h2 id="避免重复交换和枢轴重复的数字"><a href="#避免重复交换和枢轴重复的数字" class="headerlink" title="避免重复交换和枢轴重复的数字"></a>避免重复交换和枢轴重复的数字</h2><p>我们可以对每趟使用一种三路的划分策略，既将数组分为比目标大，比目标小和等于目标三个部分。使用left和right表示最左侧和最右侧的下标，下标l和r表示左侧和右侧的游标，i表示中间的游标，递归算法设计如下：</p>
-<ul>
-<li>初始化：left=0，right=数组长度-1，l=left,r=right,i=l+1，数组array</li>
-<li>递归终止判定：left&gt;=right</li>
-<li>递归过程：当i&lt;=r时，循环比对pivot枢轴和array[i]，若array[i]小于pivot,i和l位置互换，i++,l++；若array[i]大于pivot,i和r位置互换,r—;若array[i]=pivot，i++。</li>
-<li>然后分治递归（left,l-1)和(r+1,right)。</li>
-</ul>
-<h2 id="三数取中法"><a href="#三数取中法" class="headerlink" title="三数取中法"></a>三数取中法</h2><p>取三个元素（一般是第一个、最后一个和中间的元素）的中间值作为基准。</p>
-<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;array,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> tmp=array[left];</span><br><span class="line">    array[left]=array[right];</span><br><span class="line">    array[right]=tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">checkSorted</span><span class="params">(vector&lt;<span class="type">int</span>&gt; array,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> cmp=array[left];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=left;i&lt;=right;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(array[i]&gt;=cmp) cmp=array[i];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">getPivot</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;array,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> x1=array[left];</span><br><span class="line">    <span class="type">int</span> x2=array[right];</span><br><span class="line">    <span class="type">int</span> x3=array[(left+right)/<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span>(x1&gt;=x2 &amp;&amp; x1&gt;=x3)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x2&gt;=x1 &amp;&amp; x2&gt;=x3)&#123;</span><br><span class="line">        <span class="built_in">swap</span>(array,left,right);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">swap</span>(array,left,(left+right)/<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">quicksort</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;array,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(left&gt;=right) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">checkSorted</span>(array, left, right)) <span class="keyword">return</span>;</span><br><span class="line">    <span class="type">int</span> l=left;</span><br><span class="line">    <span class="type">int</span> r=right;</span><br><span class="line">    <span class="built_in">getPivot</span>(array,l,r);</span><br><span class="line">    <span class="type">int</span> i=left+<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> cmp=array[l];</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=r)&#123;</span><br><span class="line">        <span class="keyword">if</span>(array[i]&lt;cmp)&#123;</span><br><span class="line">            <span class="built_in">swap</span>(array,i,l);</span><br><span class="line">            i++;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(array[i]&gt;cmp)&#123;</span><br><span class="line">            <span class="built_in">swap</span>(array,i,r);</span><br><span class="line">            r--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">quicksort</span>(array,left,l<span class="number">-1</span>);</span><br><span class="line">    <span class="built_in">quicksort</span>(array,r+<span class="number">1</span>,right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt; array)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;array.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">        cout&lt;&lt;array[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; array=&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">2</span>&#125;;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;初始数组顺序&quot;</span>&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">printArray</span>(array);</span><br><span class="line">    <span class="type">int</span> left=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> right=array.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">quicksort</span>(array,left,right);</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;排序后数组顺序&quot;</span>&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">printArray</span>(array);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>程序设计</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>基于selenium的大连理工大学研究生抢课脚本</title>
     <url>/2022/09/02/pyaudio/</url>
     <content><![CDATA[<p>2022年9月1日，这是笔者被学校的土豆服务器气到自闭的一天。早上8:00开始选课，9:20笔者才进了选课系统，期间手点鼠标点到快抽筋。。。不出意外地，所有需要抢的课都被抢走了。然后，笔者所在的研究生大群里竟然有人商量着换课，这种行为对笔者造成了极大的精神伤害，下面的抢课脚本就是在这个情况下诞生的。（是的，我们不是想挤压已经压力山大的服务器，而是想制裁那些试图交易换课的人。）</p>
@@ -602,6 +533,62 @@ scos\theta_j && j\neq y_i\\
       </categories>
       <tags>
         <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于快速排序的一些优化方法</title>
+    <url>/2021/09/15/quicksort/</url>
+    <content><![CDATA[<h2 id="排序前的有序性检查"><a href="#排序前的有序性检查" class="headerlink" title="排序前的有序性检查"></a>排序前的有序性检查</h2><p>我们可以在快速排序算法的每个递归子数组排序前进行有序性检查，无序时才进行排序操作。</p>
+<h2 id="避免重复交换和枢轴重复的数字"><a href="#避免重复交换和枢轴重复的数字" class="headerlink" title="避免重复交换和枢轴重复的数字"></a>避免重复交换和枢轴重复的数字</h2><p>我们可以对每趟使用一种三路的划分策略，既将数组分为比目标大，比目标小和等于目标三个部分。使用left和right表示最左侧和最右侧的下标，下标l和r表示左侧和右侧的游标，i表示中间的游标，递归算法设计如下：</p>
+<ul>
+<li>初始化：left=0，right=数组长度-1，l=left,r=right,i=l+1，数组array</li>
+<li>递归终止判定：left&gt;=right</li>
+<li>递归过程：当i&lt;=r时，循环比对pivot枢轴和array[i]，若array[i]小于pivot,i和l位置互换，i++,l++；若array[i]大于pivot,i和r位置互换,r—;若array[i]=pivot，i++。</li>
+<li>然后分治递归（left,l-1)和(r+1,right)。</li>
+</ul>
+<h2 id="三数取中法"><a href="#三数取中法" class="headerlink" title="三数取中法"></a>三数取中法</h2><p>取三个元素（一般是第一个、最后一个和中间的元素）的中间值作为基准。</p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;array,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> tmp=array[left];</span><br><span class="line">    array[left]=array[right];</span><br><span class="line">    array[right]=tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">checkSorted</span><span class="params">(vector&lt;<span class="type">int</span>&gt; array,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> cmp=array[left];</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=left;i&lt;=right;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(array[i]&gt;=cmp) cmp=array[i];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">getPivot</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;array,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> x1=array[left];</span><br><span class="line">    <span class="type">int</span> x2=array[right];</span><br><span class="line">    <span class="type">int</span> x3=array[(left+right)/<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">if</span>(x1&gt;=x2 &amp;&amp; x1&gt;=x3)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x2&gt;=x1 &amp;&amp; x2&gt;=x3)&#123;</span><br><span class="line">        <span class="built_in">swap</span>(array,left,right);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">swap</span>(array,left,(left+right)/<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">quicksort</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;array,<span class="type">int</span> left,<span class="type">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(left&gt;=right) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">checkSorted</span>(array, left, right)) <span class="keyword">return</span>;</span><br><span class="line">    <span class="type">int</span> l=left;</span><br><span class="line">    <span class="type">int</span> r=right;</span><br><span class="line">    <span class="built_in">getPivot</span>(array,l,r);</span><br><span class="line">    <span class="type">int</span> i=left+<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> cmp=array[l];</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=r)&#123;</span><br><span class="line">        <span class="keyword">if</span>(array[i]&lt;cmp)&#123;</span><br><span class="line">            <span class="built_in">swap</span>(array,i,l);</span><br><span class="line">            i++;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(array[i]&gt;cmp)&#123;</span><br><span class="line">            <span class="built_in">swap</span>(array,i,r);</span><br><span class="line">            r--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">quicksort</span>(array,left,l<span class="number">-1</span>);</span><br><span class="line">    <span class="built_in">quicksort</span>(array,r+<span class="number">1</span>,right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt; array)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;array.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">        cout&lt;&lt;array[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; array=&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">2</span>&#125;;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;初始数组顺序&quot;</span>&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">printArray</span>(array);</span><br><span class="line">    <span class="type">int</span> left=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> right=array.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">quicksort</span>(array,left,right);</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;排序后数组顺序&quot;</span>&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">printArray</span>(array);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>程序设计</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySql的高级查询指令示例</title>
+    <url>/2021/06/29/MySqlSelect/</url>
+    <content><![CDATA[<p>MySQL提供了一系列高级查询指令，用于执行复杂的数据库查询操作。下面介绍几个常用的高级查询指令及其用法：</p>
+<ol>
+<li><p>JOIN：用于将两个或多个表基于某种关联条件进行连接。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> t1.column1, t2.column2</span><br><span class="line"><span class="keyword">FROM</span> table1 <span class="keyword">AS</span> t1</span><br><span class="line"><span class="keyword">JOIN</span> table2 <span class="keyword">AS</span> t2 <span class="keyword">ON</span> t1.id <span class="operator">=</span> t2.id;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>UNION：用于将多个SELECT语句的结果合并为一个结果集。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1 <span class="keyword">FROM</span> table1</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> column1 <span class="keyword">FROM</span> table2;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DISTINCT：用于去除查询结果中的重复行。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> column1, column2 <span class="keyword">FROM</span> <span class="keyword">table</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>GROUP BY：用于根据指定的列对结果进行分组，并可以结合聚合函数使用。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, <span class="built_in">COUNT</span>(column2)</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>HAVING：用于在GROUP BY语句中对分组结果进行过滤。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, <span class="built_in">COUNT</span>(column2)</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column1</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">COUNT</span>(column2) <span class="operator">&gt;</span> <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ORDER BY：用于对查询结果进行排序，默认为升序。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, column2</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> column1 <span class="keyword">ASC</span>, column2 <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>LIMIT：用于限制查询结果的返回数量。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, column2</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">table</span></span><br><span class="line">LIMIT <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>常用工具</category>
+      </categories>
+      <tags>
+        <tag>MySql</tag>
       </tags>
   </entry>
   <entry>
