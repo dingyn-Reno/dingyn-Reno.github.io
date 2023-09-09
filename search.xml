@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>DeepSpeed</title>
+    <url>/2023/09/07/DeepSpeed/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>DeepSpeed推理源码解读（一）代码基础结构分析</title>
+    <url>/2023/09/07/scp/</url>
+    <content><![CDATA[<p>DeepSpeed是一个由微软开发的开源深度学习优化库，旨在提高大规模模型训练的效率和可扩展性。它通过多种技术手段来加速训练和推理，包括模型并行化、梯度累积、动态精度缩放、本地模式混合精度等。DeepSpeed还提供了一些辅助工具，如分布式训练管理、内存优化和模型压缩等，以帮助开发者更好地管理和优化大规模深度学习训练任务。</p>
+<p>对于模型的推理，DeepSpeed提供了一套和FasterTransformer类似的分布式模型推理优化方案。为了深入学习分布式模型推理优化技术，笔者特对DeepSpeed推理部分的代码进行解读。</p>
+<h2 id="推理模型初始化"><a href="#推理模型初始化" class="headerlink" title="推理模型初始化"></a>推理模型初始化</h2><h2 id="推理代码优化"><a href="#推理代码优化" class="headerlink" title="推理代码优化"></a>推理代码优化</h2>]]></content>
+      <categories>
+        <category>模型部署优化</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>tensorrt的int8量化示例</title>
     <url>/2023/07/11/tensorint8/</url>
     <content><![CDATA[<h2 id="int8量化原理"><a href="#int8量化原理" class="headerlink" title="int8量化原理"></a>int8量化原理</h2><p>TensorRT的INT8（8位整数）量化是一种优化推理过程的技术，它可以将深度学习模型的权重和激活值从浮点数表示转换为8位整数表示，从而减少模型的存储需求和计算量，提高推理性能。</p>
@@ -514,7 +532,6 @@
 <p>基于alert messagebox的逻辑处理，使用断言来保证逻辑的正确执行。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">alert = driver.switch_to.alert</span><br><span class="line">                <span class="keyword">assert</span> alert.text == <span class="string">&#x27;确定要选择该课程？&#x27;</span></span><br><span class="line">                <span class="built_in">print</span>(alert.text)</span><br><span class="line">                alert.accept()  <span class="comment"># 去除浏览器警告</span></span><br></pre></td></tr></table></figure>
 <h2 id="战绩"><a href="#战绩" class="headerlink" title="战绩"></a>战绩</h2><p>截止9月3日7:00，本脚本已经为笔者截到《云计算》、《优化方法》两门课程。</p>
-<h2 id="需要解决的问题"><a href="#需要解决的问题" class="headerlink" title="需要解决的问题"></a>需要解决的问题</h2><p>不支持多线程；对不了解html的用户不友好，需要结合爬虫实现辅助获取按键value的功能等。</p>
 ]]></content>
       <categories>
         <category>随便写的玩意</category>
@@ -536,30 +553,6 @@
       </categories>
       <tags>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>scp指令--文件传输</title>
-    <url>/2022/05/26/scp/</url>
-    <content><![CDATA[<p>在linux下一般用scp这个命令来通过ssh传输文件。</p>
-<p>1、从服务器上下载文件</p>
-<p>scp username@servername:&#x2F;path&#x2F;filename &#x2F;var&#x2F;www&#x2F;local_dir（本地目录）</p>
-<p>例如scp <a href="mailto:&#114;&#111;&#x6f;&#x74;&#64;&#x31;&#57;&#x32;&#46;&#49;&#x36;&#56;&#x2e;&#x30;&#x2e;&#x31;&#x30;&#x31;">&#114;&#111;&#x6f;&#x74;&#64;&#x31;&#57;&#x32;&#46;&#49;&#x36;&#56;&#x2e;&#x30;&#x2e;&#x31;&#x30;&#x31;</a>:&#x2F;var&#x2F;www&#x2F;test.txt 把192.168.0.101上的&#x2F;var&#x2F;www&#x2F;test.txt 的文件下载到&#x2F;var&#x2F;www&#x2F;local_dir（本地目录）</p>
-<p>2、上传本地文件到服务器</p>
-<p>scp &#x2F;path&#x2F;filename username@servername:&#x2F;path</p>
-<p>例如scp &#x2F;var&#x2F;www&#x2F;test.php <a href="mailto:&#114;&#111;&#x6f;&#x74;&#64;&#49;&#57;&#50;&#x2e;&#49;&#54;&#56;&#x2e;&#x30;&#46;&#49;&#x30;&#x31;">&#114;&#111;&#x6f;&#x74;&#64;&#49;&#57;&#50;&#x2e;&#49;&#54;&#56;&#x2e;&#x30;&#46;&#49;&#x30;&#x31;</a>:&#x2F;var&#x2F;www&#x2F; 把本机&#x2F;var&#x2F;www&#x2F;目录下的test.php文件上传到192.168.0.101这台服务器上的&#x2F;var&#x2F;www&#x2F;目录</p>
-<p>3、从服务器下载整个目录</p>
-<p>scp -r username@servername:&#x2F;var&#x2F;www&#x2F;remote_dir&#x2F;（远程目录） &#x2F;var&#x2F;www&#x2F;local_dir（本地目录）</p>
-<p>例如:scp -r <a href="mailto:&#x72;&#111;&#x6f;&#116;&#64;&#x31;&#57;&#50;&#x2e;&#x31;&#54;&#56;&#46;&#x30;&#x2e;&#x31;&#x30;&#49;">&#x72;&#111;&#x6f;&#116;&#64;&#x31;&#57;&#50;&#x2e;&#x31;&#54;&#56;&#46;&#x30;&#x2e;&#x31;&#x30;&#49;</a>:&#x2F;var&#x2F;www&#x2F;test &#x2F;var&#x2F;www&#x2F;</p>
-<p>4、上传目录到服务器</p>
-<p>scp -r local_dir username@servername:remote_dir</p>
-<p>例如：scp -r test <a href="mailto:&#114;&#x6f;&#111;&#116;&#x40;&#49;&#x39;&#x32;&#46;&#49;&#x36;&#56;&#46;&#x30;&#46;&#x31;&#48;&#x31;">&#114;&#x6f;&#111;&#116;&#x40;&#49;&#x39;&#x32;&#46;&#49;&#x36;&#56;&#46;&#x30;&#46;&#x31;&#48;&#x31;</a>:&#x2F;var&#x2F;www&#x2F; 把当前目录下的test目录上传到服务器的&#x2F;var&#x2F;www&#x2F; 目录</p>
-]]></content>
-      <categories>
-        <category>常用工具</category>
-      </categories>
-      <tags>
-        <tag>scp</tag>
       </tags>
   </entry>
   <entry>
