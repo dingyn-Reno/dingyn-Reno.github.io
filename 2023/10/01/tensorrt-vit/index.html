@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python," />
 
 
 
@@ -79,12 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Reno&#39;s Notebook">
-<meta property="og:url" content="http://example.com/archives/2023/07/index.html">
+<meta name="description" content="本文进行了对ViT模型的推理调优，实现了比FasterTransormer中ViT模型更快10%的int8推理速度。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ViT模型优化">
+<meta property="og:url" content="http://example.com/2023/10/01/tensorrt-vit/index.html">
 <meta property="og:site_name" content="Reno&#39;s Notebook">
+<meta property="og:description" content="本文进行了对ViT模型的推理调优，实现了比FasterTransormer中ViT模型更快10%的int8推理速度。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-01T00:51:29.000Z">
+<meta property="article:modified_time" content="2023-10-04T09:13:28.183Z">
 <meta property="article:author" content="Yuning Ding">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 
 
@@ -115,12 +120,12 @@
 
 
 
-  <link rel="canonical" href="http://example.com/archives/2023/07/"/>
+  <link rel="canonical" href="http://example.com/2023/10/01/tensorrt-vit/"/>
 
 
 
 
-  <title>Archive | Reno's Notebook</title>
+  <title>ViT模型优化 | Reno's Notebook</title>
   
 
 
@@ -148,7 +153,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -286,74 +291,248 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 20 posts in total. Keep on posting.
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2023">2023</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/01/tensorrt-vit/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Reno's Notebook">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2023/07/11/tensorint8/" itemprop="url">
-              
-                <span itemprop="name">tensorrt的int8量化示例</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">ViT模型优化</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2023-07-11T21:48:29+08:00"
-              content="2023-07-11" >
-          07-11
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-01T08:51:29+08:00">
+                2023-10-01
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E4%BC%98%E5%8C%96/" itemprop="url" rel="index">
+                    <span itemprop="name">模型部署优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2023/10/01/tensorrt-vit/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2023/10/01/tensorrt-vit/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  838
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  本文进行了对ViT模型的推理调优，实现了比FasterTransormer中ViT模型更快10%的int8推理速度。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这是笔者开始学习模型推理之后所做的一个练手项目，用于对ViT模型进行推理优化，本项目参考了FasterTransformer、Nvidia Hackerthon Cookbook和 TensorRT项目，最终在单卡4090上，实现了比直接推理快15倍以上，比FasterTransformer上的ViT模型快10%的int8模型推理速度。</p>
+<p>目前项目正在整理代码ing，最近实验室的服务器有些问题，一些工作需要延迟一段时间。 Github：<a target="_blank" rel="noopener" href="https://github.com/dingyn-Reno/FasterVit">https://github.com/dingyn-Reno/FasterVit</a></p>
+<h2 id="实验准备"><a href="#实验准备" class="headerlink" title="实验准备"></a>实验准备</h2><p>实验在单卡4090上进行，使用的数据为Fashion Mnist，基础精度为0.445。</p>
+<h2 id="将模型解析为onnx"><a href="#将模型解析为onnx" class="headerlink" title="将模型解析为onnx"></a>将模型解析为onnx</h2><p>首先将Pytorch版本的Vit转化为onnx模型，使用onnx初步推理时达到295.6190s。</p>
+<h2 id="计算图自动优化"><a href="#计算图自动优化" class="headerlink" title="计算图自动优化"></a>计算图自动优化</h2><p>我们测试的计算图的自动优化技术包括：PolyGraphy（常量折叠），onnx optimizer（删除不必要的节点和边），onnx-simplifier（计算图自动化简）。实验结果显示，onnx-simplifier和PolyGraphy用处较大，onnx optimizer几乎没有效果。最终计算图优化后速度达到290.6022s。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> onnx</span><br><span class="line"><span class="keyword">from</span> onnxoptimizer <span class="keyword">import</span> optimize</span><br><span class="line"></span><br><span class="line">model_path = <span class="string">&quot;./graphs/folded.onnx&quot;</span></span><br><span class="line">onnx_model = onnx.load(model_path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除不必要的节点和边</span></span><br><span class="line"><span class="comment"># optimized_model = optimize(onnx_model, [&quot;eliminate_identity&quot;])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 权重融合</span></span><br><span class="line">optimized_model = optimize(onnx_model, [<span class="string">&quot;fuse_add_bias_into_conv&quot;</span>])</span><br><span class="line"></span><br><span class="line">optimized_model_path = <span class="string">&quot;./graphs/optimized_fuse_model.onnx&quot;</span></span><br><span class="line">onnx.save(optimized_model, optimized_model_path)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">polygraphy run evaluate-model your_model.onnx --onnxrt --trt</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> onnx</span><br><span class="line"><span class="keyword">from</span> onnxsim <span class="keyword">import</span> simplify</span><br><span class="line"></span><br><span class="line">model_path = <span class="string">&quot;./graphs/folded.onnx&quot;</span></span><br><span class="line">onnx_model = onnx.load(model_path)</span><br><span class="line"></span><br><span class="line">simplified_model, check = simplify(onnx_model)</span><br><span class="line"></span><br><span class="line">simplified_model_path = <span class="string">&quot;./graphs/simplified_model.onnx&quot;</span></span><br><span class="line">onnx.save(simplified_model, simplified_model_path)</span><br></pre></td></tr></table></figure>
+<h2 id="计算图手工优化"><a href="#计算图手工优化" class="headerlink" title="计算图手工优化"></a>计算图手工优化</h2><p>计算图手工优化采用了onnx GraphSurgeon。本工程主要使用了对transpose的合并，速度达到了289.8771s，实现了微小的提升。核心代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> graph.nodes:</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;to_qkv/MatMul&#x27;</span> <span class="keyword">in</span> node.name:</span><br><span class="line">        <span class="built_in">print</span>(node.name)</span><br><span class="line">        reshape_node=node.o(<span class="number">1</span>).o()</span><br><span class="line">        transpose_node=node.o(<span class="number">1</span>).o().o().o()</span><br><span class="line">        matmul_node=node.o(<span class="number">1</span>).o().o().o().o()</span><br><span class="line">        <span class="comment"># matmul_node.inputs[1]=reshape_node.outputs[0]</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># print(transpose_node)</span></span><br><span class="line">        trans_attrs=&#123;<span class="string">&#x27;perm&#x27;</span>: [<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>]&#125;</span><br><span class="line">        transpose_new=gs.Node(<span class="string">&quot;Transpose&quot;</span>,<span class="string">&quot;transpose_new_&#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="built_in">str</span>(cnt)),inputs=[reshape_node.outputs[<span class="number">0</span>]],outputs=[matmul_node.inputs[<span class="number">1</span>]],attrs=trans_attrs)</span><br><span class="line">        graph.nodes.append(transpose_new)</span><br><span class="line">        transpose_node.outputs.clear()</span><br><span class="line">        cnt+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove the fake node from the graph completely</span></span><br><span class="line">graph.cleanup()</span><br></pre></td></tr></table></figure>
+<h2 id="bulider和config的配置优化。"><a href="#bulider和config的配置优化。" class="headerlink" title="bulider和config的配置优化。"></a>bulider和config的配置优化。</h2><p>在builder中设置标志位，但这个操作并未取得明显的性能提升。尺寸对齐同样，没有取得更好的结果。</p>
+<h2 id="Plugin替换"><a href="#Plugin替换" class="headerlink" title="Plugin替换"></a>Plugin替换</h2><p>ViT的plugin替换涉及到LayerNorm的替换工作。实现后推理速度达到286.7723s。</p>
+<h2 id="fp16-int8量化"><a href="#fp16-int8量化" class="headerlink" title="fp16/int8量化"></a>fp16/int8量化</h2><p>量化是提高速度的核心操作，经fp16优化后达到236.6728s，int8量化后19.4612s。int8配置时如何校准激活层的操作可以见前文 <a target="_blank" rel="noopener" href="https://dingyn-reno.github.io/2023/07/11/tensorint8/，目的自然是将分布散乱的较大的激活值舍弃掉。">https://dingyn-reno.github.io/2023/07/11/tensorint8/，目的自然是将分布散乱的较大的激活值舍弃掉。</a></p>
+<h2 id="性能讨论"><a href="#性能讨论" class="headerlink" title="性能讨论"></a>性能讨论</h2><p>相比FasterTransformer，本方案使用了额外的计算图折叠、优化等技术，包括自动优化针对计算图进行onnx-GraphSurgeon手动优化，此外，经过测试，本方案使用的CUB V2版LayerNorm算子的速度优于FasterTransformer。</p>
+<p>然而，作为一个成型的方案，本工程和FasterTransformer还有较大差距，作为对Transformer通用结构的大型推理优化方案，FasterTranformer主要面向对fp16模型的推理优化工作，而本方案即使在针对性优化的ViT上，也没能取得在fp16上取得更好的优化结果。同时，FasterTranformer对分布式推理的潜在支持以及对大batch的优化工作也是本方案没能实现的。</p>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/07/11/tensorint8/" rel="next" title="tensorrt的int8量化示例">
+                <i class="fa fa-chevron-left"></i> tensorrt的int8量化示例
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -361,6 +540,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -381,8 +567,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -442,6 +637,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">实验准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E6%A8%A1%E5%9E%8B%E8%A7%A3%E6%9E%90%E4%B8%BAonnx"><span class="nav-number">3.</span> <span class="nav-text">将模型解析为onnx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE%E8%87%AA%E5%8A%A8%E4%BC%98%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">计算图自动优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%9B%BE%E6%89%8B%E5%B7%A5%E4%BC%98%E5%8C%96"><span class="nav-number">5.</span> <span class="nav-text">计算图手工优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bulider%E5%92%8Cconfig%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96%E3%80%82"><span class="nav-number">6.</span> <span class="nav-text">bulider和config的配置优化。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Plugin%E6%9B%BF%E6%8D%A2"><span class="nav-number">7.</span> <span class="nav-text">Plugin替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fp16-int8%E9%87%8F%E5%8C%96"><span class="nav-number">8.</span> <span class="nav-text">fp16&#x2F;int8量化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E8%AE%A8%E8%AE%BA"><span class="nav-number">9.</span> <span class="nav-text">性能讨论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -612,6 +823,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
