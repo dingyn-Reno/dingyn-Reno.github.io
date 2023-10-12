@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
+    <title>基于FasterTransformer的ViT推理优化</title>
     <url>/2023/10/01/tensorrt-vit/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这是笔者开始学习模型推理之后所做的一个练手项目，基于FasterTransformer用于对ViT模型进行推理优化，本项目参考了FasterTransformer、Nvidia Hackerthon Cookbook和 TensorRT项目，最终在单卡4090上，实现了比直接推理快15倍以上，比FasterTransformer上的ViT模型快10%的int8模型推理速度。</p>
 <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>程序在单卡4090上进行，使用的数据为Fashion Mnist，基础精度为0.445。可选模型包括原始ViT（model/vit.py）和FasterTransformer构建的int8_ViT模型，（FasterTransformer/examples/pytorch/vit/ViT-quantization/vit_int8.py），完成简单训练后得到权重。</p>
@@ -22,6 +22,12 @@
 <h2 id="性能讨论"><a href="#性能讨论" class="headerlink" title="性能讨论"></a>性能讨论</h2><p>相比FasterTransformer，本方案使用了额外的计算图折叠、优化等技术，包括自动优化针对计算图进行onnx-GraphSurgeon手动优化，此外，经过测试，本方案使用的CUB V2版LayerNorm算子的速度优于FasterTransformer。</p>
 <p>然而，作为一个成型的方案，本工程和FasterTransformer还有较大差距，作为对Transformer通用结构的大型推理优化方案，FasterTranformer主要面向对fp16模型的推理优化工作，而本方案即使在针对性优化的ViT上，也没能取得在fp16上取得更好的优化结果。同时，FasterTranformer对分布式推理的潜在支持以及对大batch的优化工作也是本方案没能实现的。</p>
 ]]></content>
+      <categories>
+        <category>模型部署优化</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
   </entry>
   <entry>
     <title>tensorrt的int8量化示例</title>
